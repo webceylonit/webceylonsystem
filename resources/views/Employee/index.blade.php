@@ -15,7 +15,7 @@
           <li class="breadcrumb-item">
             <a href="{{ route('dashboard') }}">
               <svg class="stroke-icon">
-                <use href="../assets/svg/icon-sprite.svg#stroke-home"></use>
+                <use href="{{ asset('frontend/assets/svg/icon-sprite.svg#stroke-home')}}"></use>
               </svg>
             </a>
           </li>
@@ -32,73 +32,62 @@
   <div class="row">
     <div class="col-sm-12">
       <div class="card">
+        <div class="card-header pb-0 card-no-border">
+          <a href="{{ route('employees.create') }}" class="btn btn-primary">Add Employee +</a>
+        </div>
         <div class="card-body">
-          <div class="list-employee-header">
-            <div>
-              <div class="light-box">
-                <a data-bs-toggle="collapse" href="#collapseEmployee" role="button" aria-expanded="false" aria-controls="collapseEmployee">
-                </a>
-              </div>
-              <a class="btn btn-primary" href="{{ route('employees.create') }}">
-                <i class="fa fa-plus"></i> Add Employee
-              </a>
-            </div>
-          </div>
-
-          <div class="list-employee">
-            <table class="table" id="employee-list">
+          <div class="table-responsive">
+            <table class="display" id="basic-1">
               <thead>
                 <tr>
-                  <th>
-                    <div class="form-check">
-                      <input class="form-check-input checkbox-primary" type="checkbox">
-                    </div>
-                  </th>
-                  <th><span class="f-light f-w-600">Employee Name</span></th>
-                  <th><span class="f-light f-w-600">Email</span></th>
-                  <th><span class="f-light f-w-600">Role</span></th>
-                  <th><span class="f-light f-w-600">Start Date</span></th>
-                  <th><span class="f-light f-w-600">Status</span></th>
-                  <th><span class="f-light f-w-600">Actions</span></th>
+                  <th>#</th>
+                  <th>Employee Name</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Start Date</th>
+                  <th>Status</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
                 @foreach ($employees as $employee)
-                  <tr>
-                    <td>
-                      <div class="form-check">
-                        <input class="form-check-input checkbox-primary" type="checkbox">
-                      </div>
-                    </td>
-                    <td>{{ $employee->name }}</td>
-                    <td>{{ $employee->email }}</td>
-                    <td>{{ $employee->role->name }}</td>
-                    <td>{{ $employee->start_date }}</td>
-                    <td>
+                <tr>
+                  <td>{{ $loop->iteration }}</td>
+                  <td>{{ $employee->name }}</td>
+                  <td>{{ $employee->email }}</td>
+                  <td>{{ $employee->role->name }}</td>
+                  <td>{{ $employee->start_date }}</td>
+                  <td>
                     @if ($employee->status === 'Available')
-                        <span class="badge badge-light-primary">Available</span>
-                      @elseif ($employee->status === 'UnAvailable')
-                        <span class="badge badge-light-secondary">UnAvailable</span>
-                      @else
-                        <span class="badge badge-light-warning">Unknown</span>
-                      @endif
-</td>
+                    <span class="badge badge-light-primary">Available</span>
+                    @elseif ($employee->status === 'UnAvailable')
+                    <span class="badge badge-light-secondary">UnAvailable</span>
+                    @else
+                    <span class="badge badge-light-warning">Unknown</span>
+                    @endif
+                  </td>
 
-                    <td>
-                      <div class="employee-action">
-                        <a href="{{ route('employees.edit', $employee->id) }}" class="btn btn-warning btn-sm">
-                          <i class="fa fa-edit"></i> Edit
+                  <td>
+                    <ul class="action">
+                      <li class="edit">
+                        <a href="{{ route('employees.edit', $employee->id) }}">
+                          <i class="icon-pencil-alt"></i>
                         </a>
-                        <form action="{{ route('employees.destroys', $employee->id) }}" method="POST" style="display: inline;">
-                          @csrf
-                          @method('DELETE')
-                          <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this employee?')">
-                            <i class="fa fa-trash"></i> Delete
-                          </button>
-                        </form>
-                      </div>
-                    </td>
-                  </tr>
+                      </li>
+                      <li class="delete">
+                                        <form id="delete-form-{{ $employee->id }}" action="{{ route('employees.destroys', $employee->id) }}" method="POST" class="delete-form">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="button" class="delete-btn" onclick="confirmDelete('delete-form-{{ $employee->id }}');" style="border:none; background:none; cursor:pointer; padding:0;">
+                                                <i class="icon-trash" style="color:red;"></i>
+                                            </button>
+                                        </form>
+                                    </li>
+
+                    </ul>
+                    
+                  </td>
+                </tr>
                 @endforeach
               </tbody>
             </table>

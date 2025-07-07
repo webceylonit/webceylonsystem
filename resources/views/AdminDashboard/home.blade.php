@@ -14,10 +14,10 @@
                   <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">                                       
                         <svg class="stroke-icon">
-                          <use href="frontend/assets/svg/icon-sprite.svg#stroke-home"></use>
+                          <use href="{{ asset('frontend/assets/svg/icon-sprite.svg#stroke-home') }}"></use>
                         </svg></a></li>
                     <li class="breadcrumb-item">Dashboard</li>
-                    <li class="breadcrumb-item active">Default      </li>
+                    <li class="breadcrumb-item active">Default </li>
                   </ol>
                 </div>
               </div>
@@ -32,9 +32,11 @@
                     <div class="media media-wrapper justify-content-between">
                       <div class="media-body"> 
                         <div class="greeting-user">
-                          <h4 class="f-w-600">Welcome to Esupport</h4>
-                          <p>Here whats happing in your account today</p>
-                          <div class="whatsnew-btn"><a class="btn btn-outline-white">Whats New !</a></div>
+                          <h4 class="f-w-600">Welcome to WebCeylon</h4>
+                          <p>Here whats happing in your company today</p>
+                          <div class="whatsnew-btn">
+                            <!-- <a class="btn btn-outline-white">Whats New !</a> -->
+                          </div>
                         </div>
                       </div>
                       <div>  
@@ -62,7 +64,7 @@
                         <div class="badge f-10 p-0" id="txt"></div>
                       </div>
                     </div>
-                    <div class="cartoon"><img class="img-fluid" src="frontend/assets/images/dashboard/cartoon.svg" alt="vector women with leptop"></div>
+                    <div class="cartoon"><img class="img-fluid" src="{{ asset('frontend/assets/images/dashboard/cartoon.svg') }}" alt="vector women with leptop"></div>
                   </div>
                 </div>
               </div>

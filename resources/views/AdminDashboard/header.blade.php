@@ -37,7 +37,7 @@
                 </div>
               </li>
 
-              <li class="onhover-dropdown">
+              <!-- <li class="onhover-dropdown">
                 <div class="notification-box">
                   <svg>
                     <use href="{{ asset('frontend/assets/svg/icon-sprite.svg#notification') }}"></use>
@@ -49,7 +49,7 @@
                     
                   </ul>
                 </div>
-              </li>
+              </li> -->
               <li class="profile-nav onhover-dropdown pe-0 py-0">
                     <div class="media profile-media">
                         <img class="b-r-10" src="{{ asset('frontend/assets/images/user/user.png') }}" alt="">
@@ -62,8 +62,8 @@
                         </div>
                     </div>
                     <ul class="profile-dropdown onhover-show-div">
-                        <li><a href="#"><i data-feather="user"></i><span>Account</span></a></li>
-                        <li><a href="#"><i data-feather="settings"></i><span>Settings</span></a></li>
+                        <li><a href="{{route('profile.edit')}}"><i data-feather="user"></i><span>Profile</span></a></li>
+                        <!-- <li><a href="#"><i data-feather="settings"></i><span>Settings</span></a></li> -->
                         {{-- ✅ Logout Link --}}
                         <li>
                             <a href="{{ route('logout') }}"

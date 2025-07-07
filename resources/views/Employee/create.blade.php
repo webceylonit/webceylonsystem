@@ -15,7 +15,7 @@
           <li class="breadcrumb-item">
             <a href="{{ route('dashboard') }}">
               <svg class="stroke-icon">
-                <use href="../assets/svg/icon-sprite.svg#stroke-home"></use>
+                <use href="{{ asset('frontend/assets/svg/icon-sprite.svg#stroke-home') }}"></use>
               </svg>
             </a>
           </li>
@@ -37,15 +37,15 @@
                 @csrf
                 <div class="card-header">
                 <h4 class="card-title mb-0">Create Employee</h4>
-                <div class="card-options">
+                <!-- <div class="card-options">
                     <a class="card-options-collapse" href="#" data-bs-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
                     <a class="card-options-remove" href="#" data-bs-toggle="card-remove"><i class="fe fe-x"></i></a>
-                </div>
+                </div> -->
                 </div>
                 <div class="card-body">
                 <div class="row">
                     <div class="col-md-12 mb-1">
-                    <div class="mb-6">
+                    <div class="mb-3">
                         <label class="form-label">Full Name</label>
                         <input class="form-control" type="text" name="name" placeholder="First Name" value="{{ old('first_name') }}">
                         @error('first_name')

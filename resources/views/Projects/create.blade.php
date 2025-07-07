@@ -15,7 +15,7 @@
           <li class="breadcrumb-item">
             <a href="{{ route('dashboard') }}">
               <svg class="stroke-icon">
-                <use href="../assets/svg/icon-sprite.svg#stroke-home"></use>
+                <use href="{{ asset('frontend/assets/svg/icon-sprite.svg#stroke-home') }}"></use>
               </svg>
             </a>
           </li>

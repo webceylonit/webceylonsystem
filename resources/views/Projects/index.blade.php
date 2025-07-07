@@ -4,41 +4,68 @@
 
 @section('content')
 
+<div class="container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-6">
+                <h4>Project List</h4>
+            </div>
+            <div class="col-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('dashboard') }}">
+                            <svg class="stroke-icon">
+                                <use href="{{ asset('frontend/assets/svg/icon-sprite.svg#stroke-home') }}"></use>
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active">Projects</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Container-fluid starts-->
 <div class="container-fluid">
     <div class="row project-cards">
         <div class="col-md-12 project-list">
             <div class="header-wrapper row m-0">
-                <div class="col-6">
+                <!-- <div class="col-6">
                     <h3 style="margin-top:50px; margin-bottom: 20px;">Project List</h3>
-                </div>
+                </div> -->
 
                 {{-- ✅ Show "Create New Project" button only for Admin & Manager --}}
-                @if(Auth::user()->role->name === 'Admin' || Auth::user()->role->name === 'Manager')
-                    <div class="col-md-6 text-end">
-                        <a class="btn btn-primary" href="{{ route('projects.create') }}"> 
-                            <i data-feather="plus-square"></i> Create New Project
-                        </a>
-                    </div>
+                 @if(Auth::user()->role->name === 'Admin' || Auth::user()->role->name === 'Manager')
+                <div class="col-md-12 text-end mb-3">
+                    <a class="btn btn-primary" href="{{ route('projects.create') }}">
+                        <i data-feather="plus-square"></i> Create New Project
+                    </a>
+                </div>
                 @endif
             </div>
 
-            <div class="card">
+            <div class="card ">
                 <div class="row">
                     <div class="col-md-6">
                         <ul class="nav nav-tabs border-tab" id="top-tab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="top-home-tab" data-bs-toggle="tab" href="#top-home" role="tab">
+                                <a class="nav-link active" id="all-tab" data-bs-toggle="tab" href="#all-projects" role="tab">
                                     <i data-feather="target"></i> All
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="profile-top-tab" data-bs-toggle="tab" href="#top-profile" role="tab">
-                                    <i data-feather="info"></i> Doing
+                                <a class="nav-link" id="new-tab" data-bs-toggle="tab" href="#new-projects" role="tab">
+                                    <i data-feather="info"></i> New
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="contact-top-tab" data-bs-toggle="tab" href="#top-contact" role="tab">
+                                <a class="nav-link" id="inprogress-tab" data-bs-toggle="tab" href="#inprogress-projects" role="tab">
+                                    <i data-feather="edit"></i> In-Progress
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="completed-tab" data-bs-toggle="tab" href="#completed-projects" role="tab">
                                     <i data-feather="check-circle"></i> Completed
                                 </a>
                             </li>
@@ -48,71 +75,46 @@
             </div>
         </div>
 
-        @foreach ($projects as $project)
-        <div class="col-xxl-4 col-md-6">
-            <div class="project-box" style="border: {{ ($project->deadline < now() && $project->status != 'Completed') ? '2px solid red' : 'none' }};">
-                <span class="badge {{ $project->status == 'Completed' ? 'badge-success' : 'badge-primary' }}">{{ $project->status }}</span>
-                <h6>{{ $project->name }}</h6>
-
-                <!-- Display Project Owner(s) -->
-                <div class="media">
-                    <img class="img-20 me-1 rounded-circle" src="{{ asset('frontend/assets/images/user/user.png') }}" alt="">
-                    <div class="media-body">
-                        <p> {{ $project->ownerNames }}</p>
-                    </div>
+        <div class="tab-content mt-3">
+            <!-- All Projects -->
+            <div class="tab-pane fade show active" id="all-projects" role="tabpanel">
+                <div class="row">
+                    @foreach ($projects as $project)
+                    @include('Projects.partials.project-box', ['project' => $project])
+                    @endforeach
                 </div>
+            </div>
 
-                <p>{{ Str::limit($project->description, 100) }}</p>
-
-                <div class="row details">
-                    <div class="col-6"><span>Start Date</span></div>
-                    <div class="col-6 text-primary">{{ $project->start_date }}</div>
+            <!-- New Projects -->
+            <div class="tab-pane fade" id="new-projects" role="tabpanel">
+                <div class="row">
+                    @foreach ($projects->where('status', 'New') as $project)
+                    @include('Projects.partials.project-box', ['project' => $project])
+                    @endforeach
                 </div>
-                <div class="row details">
-                    <div class="col-6"><span>Deadline</span></div>
-                    <div class="col-6 text-primary">{{ $project->deadline }}</div>
+            </div>
+
+            <!-- In-Progress Projects -->
+            <div class="tab-pane fade" id="inprogress-projects" role="tabpanel">
+                <div class="row">
+                    @foreach ($projects->where('status', 'In Progress') as $project)
+                    @include('Projects.partials.project-box', ['project' => $project])
+                    @endforeach
                 </div>
+            </div>
 
-                <!-- Project Progress -->
-                <div class="project-status mt-4">
-                    <div class="row">
-                        <div class="col-6">
-                            <p><strong>Tasks:</strong> {{ $project->tasks_count }} | {{ $project->completed_tasks }}</p>
-                        </div>
-                        <div class="col-6 text-end">
-                            <p><strong>{{ $project->progress }}% Complete</strong></p>
-                        </div>
-                    </div>
-                    <div class="progress" style="height: 5px">
-                        <div class="progress-bar" role="progressbar"
-                            style="width: {{ $project->progress }}%; background-color: {{ $project->progress == 100 ? 'green' : 'blue' }};"
-                            aria-valuenow="{{ $project->progress }}" aria-valuemin="0" aria-valuemax="100">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Action Buttons -->
-                <div class="mt-3">
-                    <a href="{{ route('kanban.board', ['project_id' => $project->id]) }}" class="btn btn-blue btn-sm" style="background-color: blue; color: white; width: 100px;">Kanban</a>
-                    <a href="{{ route('sprints.index', ['project_id' => $project->id]) }}" class="btn btn-secondary btn-sm" style="width: 100px;">Sprints</a>
-
-                    {{-- ✅ Show "Edit" & "Delete" buttons only for Admin & Manager --}}
-                    @if(Auth::user()->role->name === 'Admin' || Auth::user()->role->name === 'Manager')
-                        <a href="{{ route('projects.edit', $project->id) }}" class="btn btn-warning btn-sm" style="width: 100px;">
-                            <i class="icon-pencil-alt"></i>
-                        </a>
-                        <form action="{{ route('projects.destroy', $project->id) }}" method="POST" style="display: inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm" style="width: 100px;" onclick="return confirm('Are you sure?')">
-                                <i class="icon-trash"></i>
-                            </button>
-                        </form>
-                    @endif
+            <!-- Completed Projects -->
+            <div class="tab-pane fade" id="completed-projects" role="tabpanel">
+                <div class="row">
+                    @foreach ($projects->where('status', 'Completed') as $project)
+                    @include('Projects.partials.project-box', ['project' => $project])
+                    @endforeach
                 </div>
             </div>
         </div>
-        @endforeach
+
+
+
     </div>
 </div>
 

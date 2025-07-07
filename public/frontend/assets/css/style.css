@@ -119,7 +119,7 @@
 
  */
 :root {
-  --theme-deafult: #7366ff;
+  --theme-deafult: #007793;
   --theme-secondary: #f73164;
   --light-background: rgba(242, 243, 247, 0.7);
   --body-font-color: #2F2F3B;
@@ -19998,7 +19998,7 @@ select.crypto-select.primary {
 }
 
 .widget-1 {
-  background-image: url(../images/dashboard/widget-bg.png);
+  
   background-size: cover;
   margin-bottom: 25px;
 }

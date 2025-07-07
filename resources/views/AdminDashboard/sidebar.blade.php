@@ -3,8 +3,8 @@
     <div>
         <div class="logo-wrapper">
             <a href="{{ route('dashboard') }}">
-                <img class="img-fluid for-light" src="{{ asset('frontend/assets/images/eSupport Logo.png') }}" alt="">
-                <img class="img-fluid for-dark" src="{{ asset('frontend/assets/images/eSupport Logo.png') }}" alt="">
+                <img class="img-fluid for-light" style="height: auto;" src="{{ asset('frontend/assets/images/webceylon.png') }}" alt="">
+                <img class="img-fluid for-dark" style="height: auto;" src="{{ asset('frontend/assets/images/webceylon.png') }}" alt="">
             </a>
             <div class="back-btn"><i class="fa fa-angle-left"></i></div>
             <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="grid"></i></div>
@@ -12,7 +12,7 @@
 
         <div class="logo-icon-wrapper">
             <a href="{{ route('dashboard') }}">
-                <img class="img-fluid" src="{{ asset('frontend/assets/images/logo/logo-icon.png') }}" alt="">
+                <img class="img-fluid" style="width:45px;" src="{{ asset('frontend/assets/images/wcicon.png') }}" alt="">
             </a>
         </div>
 
@@ -72,10 +72,10 @@
                     <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title" href="#">
                             <svg class="stroke-icon">
-                                <use href="{{ asset('frontend/assets/svg/icon-sprite.svg#stroke-user') }}"></use>
+                                <use href="{{ asset('frontend/assets/svg/icon-sprite.svg#stroke-file') }}"></use>
                             </svg>
                             <svg class="fill-icon">
-                                <use href="{{ asset('frontend/assets/svg/icon-sprite.svg#fill-user') }}"></use>
+                                <use href="{{ asset('frontend/assets/svg/icon-sprite.svg#fill-file') }}"></use>
                             </svg>
                             <span>Project Management</span>
                         </a>
@@ -93,10 +93,10 @@
                     <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title" href="#">
                             <svg class="stroke-icon">
-                                <use href="{{ asset('frontend/assets/svg/icon-sprite.svg#stroke-user') }}"></use>
+                                <use href="{{ asset('frontend/assets/svg/icon-sprite.svg#stroke-chat') }}"></use>
                             </svg>
                             <svg class="fill-icon">
-                                <use href="{{ asset('frontend/assets/svg/icon-sprite.svg#fill-user') }}"></use>
+                                <use href="{{ asset('frontend/assets/svg/icon-sprite.svg#fill-chat') }}"></use>
                             </svg>
                             <span>Message Management</span>
                         </a>

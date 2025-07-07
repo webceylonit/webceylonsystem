@@ -3,7 +3,7 @@
 @section('title', 'Tasks for Sprint: ' . $sprint->name)
 
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid pt-2">
   <div class="page-title">
     <div class="row">
       <div class="col-6">

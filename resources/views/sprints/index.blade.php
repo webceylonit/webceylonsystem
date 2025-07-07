@@ -3,7 +3,7 @@
 @section('title', 'Sprints')
 
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid pt-2">
   <div class="page-title">
     <div class="row">
       <div class="col-6">
@@ -12,7 +12,9 @@
       {{-- ✅ Show "Add Sprint" button only for Admin & Manager --}}
       @if(Auth::user()->role->name === 'Admin' || Auth::user()->role->name === 'Manager')
         <div class="col-6 text-end">
-          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSprintModal">+ Add Sprint</button>
+        <a href="{{ route('projects.index') }}" class="btn btn-secondary">← Back to Projects</a>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSprintModal">+ Add Sprint</button>
+        
         </div>
       @endif
     </div>
