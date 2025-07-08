@@ -43,26 +43,29 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->all());
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:employees,email',
             'password' => 'required|string|min:6|confirmed',
             'start_date' => 'required|date',
-            'status' => 'required|string|in:Active,Inactive',
+            'status' => 'required|string|in:Available,Unavailable',
             'role_id' => 'required|exists:roles,id',
+            'nic' => 'required|string|max:20|unique:employees,nic',
+            'gender' => 'required|in:Male,Female,Other',
+            'dob' => 'required|date|before:today',
+            'mobile_number' => 'required|string|max:15',
+            'employee_number' => 'required|string|max:20|unique:employees,employee_number',
         ]);
 
-        // Convert status to numeric representation
-        $validated['status'] = $validated['status'] === 'Active' ? 1 : 0;
-
-        // Hash the password
         $validated['password'] = Hash::make($validated['password']);
 
-        // Create the employee
+        // dd($validated);
         Employee::create($validated);
 
         return redirect()->route('employees.index')->with('success', 'Employee created successfully.');
     }
+
 
 
     /**
@@ -84,23 +87,27 @@ class EmployeeController extends Controller
             'email' => 'required|email|unique:employees,email,' . $employee->id,
             'password' => 'nullable|string|min:6|confirmed',
             'start_date' => 'required|date',
-            'status' => 'required|string|in:Active,Inactive',
+            'status' => 'required|in:Available,Unavailable',
             'role_id' => 'required|exists:roles,id',
+            'dob' => 'nullable|date',
+            'gender' => 'nullable|in:Male,Female,Other',
+            'nic' => 'nullable|string|max:20',
+            'mobile_number' => 'nullable|string|max:15',
+            'employee_number' => 'nullable|string|max:20',
         ]);
 
-        // Convert status to numeric representation
-        $validated['status'] = $validated['status'] === 'Active' ? 1 : 0;
 
         if ($request->filled('password')) {
-            $validated['password'] = Hash::make($validated['password']); // Hash the new password
+            $validated['password'] = Hash::make($validated['password']);
         } else {
-            unset($validated['password']); // Don't update password if not provided
+            unset($validated['password']);
         }
 
         $employee->update($validated);
 
         return redirect()->route('employees.index')->with('success', 'Employee updated successfully.');
     }
+
 
 
     /**
@@ -120,22 +127,22 @@ class EmployeeController extends Controller
     }
 
     public function updateName(Request $request)
-{
-    $request->validate([
-        'name' => 'required|string|max:255',
-    ]);
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
 
-    $user = Auth::user();
+        $user = Auth::user();
 
-    if ($user->name === $request->name) {
-        return back()->with('success', 'Name is already up to date.');
+        if ($user->name === $request->name) {
+            return back()->with('success', 'Name is already up to date.');
+        }
+
+        $user->name = $request->name;
+        $user->save();
+
+        return back()->with('success', 'Name updated successfully!');
     }
-
-    $user->name = $request->name;
-    $user->save();
-
-    return back()->with('success', 'Name updated successfully!');
-}
 
 
     public function updatePassword(Request $request)

@@ -19,6 +19,11 @@ class Employee extends Authenticatable
         'start_date',
         'status',
         'role_id',
+        'nic',
+        'mobile_number',
+        'gender',
+        'dob',
+        'employee_number',
     ];
 
     public function role()

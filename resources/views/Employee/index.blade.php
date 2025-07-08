@@ -41,8 +41,13 @@
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Employee Name</th>
+                  <th>Name</th>
                   <th>Email</th>
+                  <th>Mobile</th>
+                  <th>NIC</th>
+                  <th>Gender</th>
+                  <th>DOB</th>
+                  <th>Employee Number</th>
                   <th>Role</th>
                   <th>Start Date</th>
                   <th>Status</th>
@@ -55,6 +60,11 @@
                   <td>{{ $loop->iteration }}</td>
                   <td>{{ $employee->name }}</td>
                   <td>{{ $employee->email }}</td>
+                  <td>{{ $employee->mobile_number }}</td>
+                  <td>{{ $employee->nic }}</td>
+                  <td>{{ $employee->gender }}</td>
+                  <td>{{ $employee->dob }}</td>
+                  <td>{{ $employee->employee_number }}</td>
                   <td>{{ $employee->role->name }}</td>
                   <td>{{ $employee->start_date }}</td>
                   <td>
@@ -66,7 +76,6 @@
                     <span class="badge badge-light-warning">Unknown</span>
                     @endif
                   </td>
-
                   <td>
                     <ul class="action">
                       <li class="edit">
@@ -75,22 +84,21 @@
                         </a>
                       </li>
                       <li class="delete">
-                                        <form id="delete-form-{{ $employee->id }}" action="{{ route('employees.destroys', $employee->id) }}" method="POST" class="delete-form">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="button" class="delete-btn" onclick="confirmDelete('delete-form-{{ $employee->id }}');" style="border:none; background:none; cursor:pointer; padding:0;">
-                                                <i class="icon-trash" style="color:red;"></i>
-                                            </button>
-                                        </form>
-                                    </li>
-
+                        <form id="delete-form-{{ $employee->id }}" action="{{ route('employees.destroys', $employee->id) }}" method="POST" class="delete-form">
+                          @csrf
+                          @method('DELETE')
+                          <button type="button" class="delete-btn" onclick="confirmDelete('delete-form-{{ $employee->id }}');" style="border:none; background:none; cursor:pointer; padding:0;">
+                            <i class="icon-trash" style="color:red;"></i>
+                          </button>
+                        </form>
+                      </li>
                     </ul>
-                    
                   </td>
                 </tr>
                 @endforeach
               </tbody>
             </table>
+
           </div>
         </div>
       </div>
