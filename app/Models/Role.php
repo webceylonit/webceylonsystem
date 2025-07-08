@@ -19,5 +19,9 @@ class Role extends Model
         return $this->hasMany(Employee::class);
     }
 
+    public function roleHasPermissions() {
+        return $this->hasMany(RoleHasPermissions::class, 'role_id');
+    }
+
 
 }

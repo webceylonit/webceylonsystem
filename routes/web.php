@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ProController;
@@ -41,9 +42,16 @@ Route::middleware('guest')->group(function () {
 Route::middleware(['auth:employee'])->group(function () {
     Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
+    Route::get('/roles', [RoleController::class, 'index'])->name('role.index');
+    Route::get('/role/create', [RoleController::class, 'create'])->name('role.create');
+    Route::post('/role/store', [RoleController::class, 'store'])->name('role.store');
+    Route::get('/role/edit/{role}', [RoleController::class, 'edit'])->name('role.edit');
+    Route::put('/role/update/{role}', [RoleController::class, 'update'])->name('role.update');
+    Route::delete('role/delete/{role}', [RoleController::class, 'destroy'])->name('role.destroy');
+
     Route::get('/editProfile', [EmployeeController::class, 'editProfile'])->name('profile.edit');
     Route::put('/updatePassword', [EmployeeController::class, 'updatePassword'])->name('profile.updatePassword');
-        Route::put('/updateName', [EmployeeController::class, 'updateName'])->name('profile.updateName');
+    Route::put('/updateName', [EmployeeController::class, 'updateName'])->name('profile.updateName');
     // Role-Based Dashboards
     Route::get('/dashboard', function () {
         return view('AdminDashboard.home');
@@ -81,29 +89,28 @@ Route::middleware(['auth:employee'])->group(function () {
 // Employee Management Routes (Only Admin & Manager can access)
 //Route::middleware([RoleMiddleware::class . ':Admin,Manager'])->group(function () {
 
-    Route::get('/EmployeeIndex', [EmployeeController::class, 'index'])->name('employees.index');
-    Route::get('/EmployeeCreate', [EmployeeController::class, 'create'])->name('employees.create');
-    Route::post('/Employeestore', [EmployeeController::class, 'store'])->name('employees.store');
-    Route::get('/editEmployee{employee}', [EmployeeController::class, 'edit'])->name('employees.edit');
-    Route::put('/{employee}', [EmployeeController::class, 'update'])->name('employees.update');
-    Route::delete('/{employee}', [EmployeeController::class, 'destroy'])->name('employees.destroys');
-    Route::get('/{employee}', [EmployeeController::class, 'show'])->name('employees.show');
+Route::get('/EmployeeIndex', [EmployeeController::class, 'index'])->name('employees.index');
+Route::get('/EmployeeCreate', [EmployeeController::class, 'create'])->name('employees.create');
+Route::post('/Employeestore', [EmployeeController::class, 'store'])->name('employees.store');
+Route::get('/editEmployee{employee}', [EmployeeController::class, 'edit'])->name('employees.edit');
+Route::put('/{employee}', [EmployeeController::class, 'update'])->name('employees.update');
+Route::delete('/{employee}', [EmployeeController::class, 'destroy'])->name('employees.destroys');
+Route::get('/{employee}', [EmployeeController::class, 'show'])->name('employees.show');
 //});
 
 // Project Management Routes (Only Admin & Manager can create/edit/delete projects)
 
-    
-    Route::post('Projectstore', [ProController::class, 'store'])->name('projects.store');
-    Route::get('editProject/{project}', [ProController::class, 'edit'])->name('projects.edit');
-    Route::put('updateProject/{project}', [ProController::class, 'update'])->name('projects.update');
-    Route::delete('deleteProject/{project}', [ProController::class, 'destroy'])->name('projects.destroy');
+
+Route::post('Projectstore', [ProController::class, 'store'])->name('projects.store');
+Route::get('editProject/{project}', [ProController::class, 'edit'])->name('projects.edit');
+Route::put('updateProject/{project}', [ProController::class, 'update'])->name('projects.update');
+Route::delete('deleteProject/{project}', [ProController::class, 'destroy'])->name('projects.destroy');
 
 // Anyone Assigned to Projects Can View Them
 Route::prefix('projects')->group(function () {
     Route::get('ProjectIndex', [ProController::class, 'index'])->name('projects.index'); // View Projects
     Route::get('showProject/{project}', [ProController::class, 'show'])->name('projects.show'); // Show a project
     Route::get('projectcreate', [ProController::class, 'create'])->name('projects.create');
-
 });
 
 
@@ -162,4 +169,4 @@ Route::post('/tasks/update/{taskUpdate}/solve', [TaskController::class, 'solveUp
 
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
