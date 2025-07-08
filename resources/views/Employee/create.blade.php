@@ -98,7 +98,7 @@
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label">Mobile Number</label>
-                    <input class="form-control" type="text" name="mobile_number" placeholder="07XXXXXXXX" value="{{ old('mobile_number') }}">
+                    <input class="form-control" type="text" name="mobile_number" placeholder="Mobile Number" value="{{ old('mobile_number') }}">
                     @error('mobile_number')
                     <small class="text-danger">{{ $message }}</small>
                     @enderror
@@ -120,7 +120,7 @@
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label">Employee Number</label>
-                    <input class="form-control" type="text" name="employee_number" placeholder="EMP123" value="{{ old('employee_number') }}">
+                    <input class="form-control" type="text" name="employee_number" placeholder="Employee Number" value="{{ old('employee_number') }}">
                     @error('employee_number')
                     <small class="text-danger">{{ $message }}</small>
                     @enderror
