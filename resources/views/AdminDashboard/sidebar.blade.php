@@ -52,9 +52,8 @@
                             <h6 class="lan-8">Management</h6>
                         </div>
                     </li>
-
-                    {{-- ✅ Show Employee Management Only for Admin & Manager --}}
-                    @if(Auth::user()->role->name === 'Admin' || Auth::user()->role->name === 'Manager')
+                    @if (!App\Services\PermissionService::has('View Employees')) 
+            
                     <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title" href="#">
                             <svg class="stroke-icon">
@@ -84,12 +83,8 @@
                             <span>Project Management</span>
                         </a>
                         <ul class="sidebar-submenu">
-                            <li><a href="{{ route('projects.index') }}">Project List</a></li>
-
-                            {{-- ✅ Only Admin & Manager Can Add Projects --}}
-                            @if(Auth::user()->role->name === 'Admin' || Auth::user()->role->name === 'Manager')
+                            <li><a href="{{ route('projects.index') }}">Project List</a></li>                             
                             <li><a href="{{ route('projects.create') }}">Add Projects</a></li>
-                            @endif
                         </ul>
                     </li>
 

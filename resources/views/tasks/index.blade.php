@@ -12,9 +12,9 @@
       <div class="col-6 text-end">
         <a href="{{ route('sprints.index', ['project_id' => $sprint->project_id]) }}" class="btn btn-secondary">← Back to Sprint</a>
         {{-- ✅ Only Admin & Manager Can Add Tasks --}}
-        @if(Auth::user()->role->name === 'Admin' || Auth::user()->role->name === 'Manager')
+        
           <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTaskModal">+ Add Task</button>
-        @endif
+        
       </div>
     </div>
   </div>
@@ -37,13 +37,13 @@
           <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#updateTaskModal-{{ $task->id }}">Requirements</button>
 
           <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editTaskModal-{{ $task->id }}">Edit</button>
-          @if(Auth::user()->role->name === 'Admin' || Auth::user()->role->name === 'Manager')
+          
           <form action="{{ route('tasks.destroy', $task->id) }}" method="POST" style="display:inline;">
             @csrf
             @method('DELETE')
             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
           </form>
-          @endif
+          
         </div>
       </li>
 
@@ -66,7 +66,7 @@
                 {{-- ✅ Only Admin & Manager Can Edit "Assigned To" --}}
                 <div class="mb-3">
                   <label class="form-label">Assigned To</label>
-                  <select class="form-control" name="assigned_to" required {{ Auth::user()->role->name !== 'Admin' && Auth::user()->role->name !== 'Manager' ? 'disabled' : '' }}>
+                  <select class="form-control" name="assigned_to" required >
                     @foreach ($employees as $employee)
                       <option value="{{ $employee->id }}" {{ $task->assigned_to == $employee->id ? 'selected' : '' }}>{{ $employee->name }}</option>
                     @endforeach
@@ -95,11 +95,11 @@
                 {{-- ✅ Only Admin & Manager Can Edit "Start Date" & "Due Date" --}}
                 <div class="mb-3">
                   <label class="form-label">Start Date</label>
-                  <input type="date" class="form-control" name="start_date" value="{{ $task->start_date }}" {{ Auth::user()->role->name !== 'Admin' && Auth::user()->role->name !== 'Manager' ? 'disabled' : '' }}>
+                  <input type="date" class="form-control" name="start_date" value="{{ $task->start_date }}" >
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Due Date</label>
-                  <input type="date" class="form-control" name="due_date" value="{{ $task->due_date }}" {{ Auth::user()->role->name !== 'Admin' && Auth::user()->role->name !== 'Manager' ? 'disabled' : '' }}>
+                  <input type="date" class="form-control" name="due_date" value="{{ $task->due_date }}" >
                 </div>
               </div>
               <div class="modal-footer">

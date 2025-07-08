@@ -1,6 +1,6 @@
 @extends('AdminDashboard.master')
 
-@section('title', 'Roles')
+@section('title', 'Create Roles')
 
 @section('content')
 

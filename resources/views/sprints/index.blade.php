@@ -9,14 +9,14 @@
       <div class="col-6">
         <h4>Sprints</h4>
       </div>
-      {{-- ✅ Show "Add Sprint" button only for Admin & Manager --}}
-      @if(Auth::user()->role->name === 'Admin' || Auth::user()->role->name === 'Manager')
+      
+      
         <div class="col-6 text-end">
         <a href="{{ route('projects.index') }}" class="btn btn-secondary">← Back to Projects</a>
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSprintModal">+ Add Sprint</button>
         
         </div>
-      @endif
+      
     </div>
   </div>
 </div>
@@ -52,20 +52,20 @@
         <div>
             <a href="{{ route('tasks.index', $sprint->id) }}" class="btn btn-info btn-sm">Tasks</a>
             {{-- ✅ Show "Edit" & "Delete" buttons only for Admin & Manager --}}
-            @if(Auth::user()->role->name === 'Admin' || Auth::user()->role->name === 'Manager')
+            
               <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editSprintModal-{{ $sprint->id }}">Edit</button>
               <form action="{{ route('sprints.destroy', $sprint->id) }}" method="POST" style="display:inline;">
                   @csrf
                   @method('DELETE')
                   <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
               </form>
-            @endif
+           
         </div>
     </li>
 
 
       <!-- Edit Sprint Modal -->
-      @if(Auth::user()->role->name === 'Admin' || Auth::user()->role->name === 'Manager')
+      
       <div class="modal fade" id="editSprintModal-{{ $sprint->id }}" tabindex="-1" aria-labelledby="editSprintModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -107,13 +107,13 @@
           </div>
         </div>
       </div>
-      @endif
+      
     @endforeach
   </ul>
 </div>
 
 <!-- Add Sprint Modal -->
-@if(Auth::user()->role->name === 'Admin' || Auth::user()->role->name === 'Manager')
+
 <div class="modal fade" id="addSprintModal" tabindex="-1" aria-labelledby="addSprintModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -154,5 +154,5 @@
     </div>
   </div>
 </div>
-@endif
+
 @endsection

@@ -36,13 +36,13 @@
                 </div> -->
 
                 {{-- ✅ Show "Create New Project" button only for Admin & Manager --}}
-                 @if(Auth::user()->role->name === 'Admin' || Auth::user()->role->name === 'Manager')
+                 
                 <div class="col-md-12 text-end mb-3">
                     <a class="btn btn-primary" href="{{ route('projects.create') }}">
                         <i data-feather="plus-square"></i> Create New Project
                     </a>
                 </div>
-                @endif
+                
             </div>
 
             <div class="card ">

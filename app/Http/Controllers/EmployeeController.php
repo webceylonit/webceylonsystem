@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\PermissionService;
 use Illuminate\Http\Request;
 use App\Models\Employee;
 use App\Models\Project;
@@ -13,6 +14,11 @@ class EmployeeController extends Controller
 {
     public function index()
     {
+
+        if (!PermissionService::has('View Employees')) {
+            return redirect()->route('unauthorized');
+        }
+
         $employees = Employee::with('role')->get(); // Fetch all employees with their roles
         return view('Employee.index', compact('employees')); // Pass employees to the view
     }
@@ -28,6 +34,9 @@ class EmployeeController extends Controller
      */
     public function create()
     {
+        if (!PermissionService::has('Create Employees')) {
+            return redirect()->route('unauthorized');
+        }
         $roles = Role::all(); // Fetch all roles for the dropdown
         return view('Employee.create', compact('roles')); // Pass roles to the view
     }
@@ -73,6 +82,9 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
+        if (!PermissionService::has('Edit Employees')) {
+            return redirect()->route('unauthorized');
+        }
         $roles = Role::all(); // Fetch all roles for the dropdown
         return view('Employee.edit', compact('employee', 'roles'));
     }
@@ -115,6 +127,9 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
+        if (!PermissionService::has('Delete Employees')) {
+            return redirect()->route('unauthorized');
+        }
         $employee->delete();
 
         return redirect()->route('employees.index')->with('success', 'Employee deleted successfully.');

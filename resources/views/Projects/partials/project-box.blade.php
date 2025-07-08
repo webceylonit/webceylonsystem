@@ -37,7 +37,7 @@
             <a href="{{ route('kanban.board', ['project_id' => $project->id]) }}" class="btn btn-blue btn-sm mt-1" style="background-color: blue; color: white; width: 100px;">Kanban</a>
             <a href="{{ route('sprints.index', ['project_id' => $project->id]) }}" class="btn btn-secondary btn-sm mt-1" style="width: 100px;">Sprints</a>
 
-            @if(Auth::user()->role->name === 'Admin' || Auth::user()->role->name === 'Manager')
+           
                 <a href="{{ route('projects.edit', $project->id) }}" class="btn btn-warning btn-sm mt-1" style="width: 100px;"><i class="icon-pencil-alt"></i></a>
                 <form action="{{ route('projects.destroy', $project->id) }}" method="POST" style="display: inline;">
                     @csrf 
@@ -46,7 +46,7 @@
                         <i class="icon-trash"></i>
                     </button>
                 </form>
-            @endif
+            
         </div>
     </div>
 </div>
