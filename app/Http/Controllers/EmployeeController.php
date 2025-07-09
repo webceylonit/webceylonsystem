@@ -37,8 +37,14 @@ class EmployeeController extends Controller
         if (!PermissionService::has('Create Employees')) {
             return redirect()->route('unauthorized');
         }
-        $roles = Role::all(); // Fetch all roles for the dropdown
-        return view('Employee.create', compact('roles')); // Pass roles to the view
+
+        $internRole = Role::where('name', 'Intern Developer')->first();
+
+        $employees = Employee::when($internRole, function ($query) use ($internRole) {
+            $query->where('role_id', '!=', $internRole->id);
+        })->get();
+        $roles = Role::all();
+        return view('Employee.create', compact('roles', 'employees'));
     }
 
     public function show($id)
@@ -64,7 +70,9 @@ class EmployeeController extends Controller
             'gender' => 'required|in:Male,Female,Other',
             'dob' => 'required|date|before:today',
             'mobile_number' => 'required|string|max:15',
+            'mobile_number_2' => 'nullable|string|max:15',
             'employee_number' => 'required|string|max:20|unique:employees,employee_number',
+            'rm_id' => 'required|exists:employees,id',
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
@@ -85,8 +93,13 @@ class EmployeeController extends Controller
         if (!PermissionService::has('Edit Employees')) {
             return redirect()->route('unauthorized');
         }
-        $roles = Role::all(); // Fetch all roles for the dropdown
-        return view('Employee.edit', compact('employee', 'roles'));
+        $roles = Role::all();
+        $internRole = Role::where('name', 'Intern Developer')->first();
+
+        $rms = Employee::when($internRole, function ($query) use ($internRole) {
+            $query->where('role_id', '!=', $internRole->id);
+        })->where('id', '!=', $employee->id)->get();
+        return view('Employee.edit', compact('employee', 'roles', 'rms'));
     }
 
     /**
@@ -105,7 +118,9 @@ class EmployeeController extends Controller
             'gender' => 'nullable|in:Male,Female,Other',
             'nic' => 'nullable|string|max:20',
             'mobile_number' => 'nullable|string|max:15',
+            'mobile_number_2' => 'nullable|string|max:15',
             'employee_number' => 'nullable|string|max:20',
+            'rm_id' => 'required|exists:employees,id',
         ]);
 
 
@@ -141,22 +156,20 @@ class EmployeeController extends Controller
         return view('Employee.profile', compact('employee'));
     }
 
-    public function updateName(Request $request)
+    public function updateMb2(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'mobile_number_2' => 'nullable|string|max:15',
         ]);
 
         $user = Auth::user();
 
-        if ($user->name === $request->name) {
-            return back()->with('success', 'Name is already up to date.');
-        }
+       
 
-        $user->name = $request->name;
+        $user->mobile_number_2 = $request->mobile_number_2;
         $user->save();
 
-        return back()->with('success', 'Name updated successfully!');
+        return back()->with('success', 'Mobile number updated successfully!');
     }
 
 

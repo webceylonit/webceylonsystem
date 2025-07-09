@@ -68,7 +68,7 @@ Route::middleware(['auth:employee'])->group(function () {
     // Profile
     Route::get('/editProfile', [EmployeeController::class, 'editProfile'])->name('profile.edit');
     Route::put('/updatePassword', [EmployeeController::class, 'updatePassword'])->name('profile.updatePassword');
-    Route::put('/updateName', [EmployeeController::class, 'updateName'])->name('profile.updateName');
+    Route::put('/updateMb2', [EmployeeController::class, 'updateMb2'])->name('profile.updateMb2');
 
     // Employee Management
     Route::get('/EmployeeIndex', [EmployeeController::class, 'index'])->name('employees.index');
@@ -130,6 +130,11 @@ Route::middleware(['auth:employee'])->group(function () {
 
     Route::get('/projects/{project}/messages', [MessageController::class, 'index'])->name('messages.index');
     Route::post('/projects/{project}/messages', [MessageController::class, 'store'])->name('messages.store');
+
+    Route::get('/documents/invoice', function () {
+    return view('Documents.invoice');
+    })->name('documents.invoice');
+
 });
 
 // Auth scaffolding routes (if using Laravel Breeze or similar)

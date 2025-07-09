@@ -53,22 +53,33 @@
                             </div>
 
                             {{-- Permissions --}}
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="mb-3">
-                                    <label class="form-label" for="permissions">Edit Permissions *</label>
-                                    <select class="form-control select2" name="permissions[]" id="permissions" multiple required>
+                                    <label class="form-label">Edit Permissions *</label>
+                                    <div class="row">
                                         @foreach($permissions as $permission)
-                                            <option value="{{ $permission->id }}"
-                                                {{ in_array($permission->id, $rolePermissions) ? 'selected' : '' }}>
-                                                {{ $permission->name }}
-                                            </option>
+                                        <div class="col-md-3"> {{-- 4 per row --}}
+                                            <div class="form-check">
+                                                <input
+                                                    class="form-check-input"
+                                                    type="checkbox"
+                                                    name="permissions[]"
+                                                    id="permission_{{ $permission->id }}"
+                                                    value="{{ $permission->id }}"
+                                                    {{ in_array($permission->id, old('permissions', $rolePermissions)) ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="permission_{{ $permission->id }}">
+                                                    {{ $permission->name }}
+                                                </label>
+                                            </div>
+                                        </div>
                                         @endforeach
-                                    </select>
+                                    </div>
                                     @error('permissions')
                                     <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
                             </div>
+
                         </div>
 
                         <div class="row mt-4">

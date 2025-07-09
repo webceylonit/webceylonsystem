@@ -41,15 +41,17 @@
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Mobile</th>
-                  <th>NIC</th>
-                  <th>Gender</th>
-                  <th>DOB</th>
                   <th>Employee Number</th>
+                  <th>Name</th>
                   <th>Role</th>
-                  <th>Start Date</th>
+                  <th>Date of Join</th>
+                  <th>Email</th>
+                  <th>Mobile 1</th>
+                  <th>Mobile 2</th>
+                  <th>Reporting Manager</th>
+                  <th>NIC</th>
+                  <th>DOB</th>
+                  <th>Gender</th>
                   <th>Status</th>
                   <th>Actions</th>
                 </tr>
@@ -58,15 +60,17 @@
                 @foreach ($employees as $employee)
                 <tr>
                   <td>{{ $loop->iteration }}</td>
-                  <td>{{ $employee->name }}</td>
-                  <td>{{ $employee->email }}</td>
-                  <td>{{ $employee->mobile_number }}</td>
-                  <td>{{ $employee->nic }}</td>
-                  <td>{{ $employee->gender }}</td>
-                  <td>{{ $employee->dob }}</td>
                   <td>{{ $employee->employee_number }}</td>
+                  <td>{{ $employee->name }}</td>
                   <td>{{ $employee->role->name }}</td>
                   <td>{{ $employee->start_date }}</td>
+                  <td>{{ $employee->email }}</td>
+                  <td>{{ $employee->mobile_number }}</td>
+                  <td>{{ $employee->mobile_number_2 ?? '-' }}</td>
+                  <td>{{ $employee->rm->name ?? '-' }}</td>
+                  <td>{{ $employee->nic }}</td>
+                  <td>{{ $employee->dob }}</td>
+                  <td>{{ $employee->gender }}</td>
                   <td>
                     @if ($employee->status === 'Available')
                     <span class="badge badge-light-primary">Available</span>

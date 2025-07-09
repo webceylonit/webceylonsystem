@@ -4,7 +4,7 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Blade;
 class PermissionService
 {
     public static function has($permissionName)
@@ -18,4 +18,6 @@ class PermissionService
             ->where('permissions.name', $permissionName)
             ->exists();
     }
+
+    
 }

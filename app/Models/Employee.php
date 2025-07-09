@@ -21,14 +21,21 @@ class Employee extends Authenticatable
         'role_id',
         'nic',
         'mobile_number',
+        'mobile_number_2',
         'gender',
         'dob',
         'employee_number',
+        'rm_id',
     ];
 
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function rm()
+    {
+        return $this->belongsTo(Employee::class);
     }
 
     public function projects()

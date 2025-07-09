@@ -48,69 +48,9 @@
                 {{-- Full Name --}}
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label class="form-label">Full Name</label>
-                    <input class="form-control" type="text" name="name" placeholder="Full Name" value="{{ old('name') }}">
+                    <label class="form-label">Full Name *</label>
+                    <input class="form-control" type="text" name="name" placeholder="Full Name" value="{{ old('name') }}" required>
                     @error('name')
-                    <small class="text-danger">{{ $message }}</small>
-                    @enderror
-                  </div>
-                </div>
-
-                {{-- NIC --}}
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label class="form-label">NIC</label>
-                    <input class="form-control" type="text" name="nic" placeholder="National Identity Card Number" value="{{ old('nic') }}">
-                    @error('nic')
-                    <small class="text-danger">{{ $message }}</small>
-                    @enderror
-                  </div>
-                </div>
-
-                {{-- Gender --}}
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label class="form-label">Gender</label>
-                    <select class="form-control btn-square" name="gender">
-                      <option value="">--Select Gender--</option>
-                      <option value="Male" {{ old('gender') == 'Male' ? 'selected' : '' }}>Male</option>
-                      <option value="Female" {{ old('gender') == 'Female' ? 'selected' : '' }}>Female</option>
-                      <option value="Other" {{ old('gender') == 'Other' ? 'selected' : '' }}>Other</option>
-                    </select>
-                    @error('gender')
-                    <small class="text-danger">{{ $message }}</small>
-                    @enderror
-                  </div>
-                </div>
-
-                {{-- Date of Birth --}}
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label class="form-label">Date of Birth</label>
-                    <input class="form-control" type="date" name="dob" value="{{ old('dob') }}">
-                    @error('dob')
-                    <small class="text-danger">{{ $message }}</small>
-                    @enderror
-                  </div>
-                </div>
-
-                {{-- Mobile Number --}}
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label class="form-label">Mobile Number</label>
-                    <input class="form-control" type="text" name="mobile_number" placeholder="Mobile Number" value="{{ old('mobile_number') }}">
-                    @error('mobile_number')
-                    <small class="text-danger">{{ $message }}</small>
-                    @enderror
-                  </div>
-                </div>
-
-                {{-- Email --}}
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label class="form-label">Email</label>
-                    <input class="form-control" type="email" name="email" placeholder="Email" value="{{ old('email') }}">
-                    @error('email')
                     <small class="text-danger">{{ $message }}</small>
                     @enderror
                   </div>
@@ -119,8 +59,8 @@
                 {{-- Employee Number --}}
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label class="form-label">Employee Number</label>
-                    <input class="form-control" type="text" name="employee_number" placeholder="Employee Number" value="{{ old('employee_number') }}">
+                    <label class="form-label">Employee Number *</label>
+                    <input class="form-control" type="text" name="employee_number" placeholder="Employee Number" value="{{ old('employee_number') }}" required>
                     @error('employee_number')
                     <small class="text-danger">{{ $message }}</small>
                     @enderror
@@ -130,8 +70,8 @@
                 {{-- Role --}}
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label class="form-label">Role</label>
-                    <select class="form-control btn-square" name="role_id">
+                    <label class="form-label">Role *</label>
+                    <select class="form-control btn-square" name="role_id" required>
                       <option value="">--Select Role--</option>
                       @foreach ($roles as $role)
                       <option value="{{ $role->id }}" {{ old('role_id') == $role->id ? 'selected' : '' }}>{{ $role->name }}</option>
@@ -146,9 +86,94 @@
                 {{-- Start Date --}}
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label class="form-label">Start Date</label>
-                    <input class="form-control" type="date" name="start_date" value="{{ old('start_date') }}">
+                    <label class="form-label">Date of Join *</label>
+                    <input class="form-control" type="date" name="start_date" value="{{ old('start_date') }}" required>
                     @error('start_date')
+                    <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Reporting Manager *</label>
+                    <select class="form-control btn-square" name="rm_id" required>
+                      <option value="">--Select Employee--</option>
+                      @foreach ($employees as $employee)
+                      <option value="{{ $employee->id }}" {{ old('rm_id') == $employee->id ? 'selected' : '' }}>{{ $employee->name }} - {{ $employee->role->name }}</option>
+                      @endforeach
+                    </select>
+                    @error('rm_id')
+                    <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                  </div>
+                </div>
+
+                {{-- Email --}}
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Email *</label>
+                    <input class="form-control" type="email" name="email" placeholder="Email" value="{{ old('email') }}" required>
+                    @error('email')
+                    <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                  </div>
+                </div>
+
+                {{-- Mobile Number --}}
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Mobile Number 1 *</label>
+                    <input class="form-control" type="text" name="mobile_number" placeholder="Mobile Number" value="{{ old('mobile_number') }}" required>
+                    @error('mobile_number')
+                    <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Mobile Number 2</label>
+                    <input class="form-control" type="text" name="mobile_number_2" placeholder="Mobile Number 2 (Optional)" value="{{ old('mobile_number_2') }}">
+                    @error('mobile_number_2')
+                    <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                  </div>
+                </div>
+
+                {{-- NIC --}}
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">NIC *</label>
+                    <input class="form-control" type="text" name="nic" placeholder="National Identity Card Number" value="{{ old('nic') }}" required>
+                    @error('nic')
+                    <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                  </div>
+                </div>
+
+                {{-- Date of Birth --}}
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Date of Birth *</label>
+                    <input class="form-control" type="date" name="dob" value="{{ old('dob') }}" required>
+                    @error('dob')
+                    <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                  </div>
+                </div>
+
+                {{-- Gender --}}
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Gender *</label>
+                    <select class="form-control btn-square" name="gender" required>
+                      <option value="">--Select Gender--</option>
+                      <option value="Male" {{ old('gender') == 'Male' ? 'selected' : '' }}>Male</option>
+                      <option value="Female" {{ old('gender') == 'Female' ? 'selected' : '' }}>Female</option>
+                      <option value="Other" {{ old('gender') == 'Other' ? 'selected' : '' }}>Other</option>
+                    </select>
+                    @error('gender')
                     <small class="text-danger">{{ $message }}</small>
                     @enderror
                   </div>
@@ -157,8 +182,8 @@
                 {{-- Status --}}
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label class="form-label">Status</label>
-                    <select class="form-control btn-square" name="status">
+                    <label class="form-label">Status *</label>
+                    <select class="form-control btn-square" name="status" required>
                       <option value="Available" {{ old('status') == 'Available' ? 'selected' : '' }}>Available</option>
                       <option value="Unavailable" {{ old('status') == 'Unavailable' ? 'selected' : '' }}>Unavailable</option>
                     </select>
@@ -171,8 +196,8 @@
                 {{-- Password --}}
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label class="form-label">Password</label>
-                    <input class="form-control" type="password" name="password" placeholder="Password">
+                    <label class="form-label">Password *</label>
+                    <input class="form-control" type="password" name="password" placeholder="Password" required>
                     @error('password')
                     <small class="text-danger">{{ $message }}</small>
                     @enderror
@@ -182,16 +207,19 @@
                 {{-- Confirm Password --}}
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label class="form-label">Re-enter Password</label>
-                    <input class="form-control" type="password" name="password_confirmation" placeholder="Re-enter Password">
+                    <label class="form-label">Re-enter Password *</label>
+                    <input class="form-control" type="password" name="password_confirmation" placeholder="Re-enter Password" required>
                     @error('password_confirmation')
                     <small class="text-danger">{{ $message }}</small>
                     @enderror
                   </div>
                 </div>
 
+                
+
               </div>
             </div>
+
 
             <div class="card-footer text-end">
               <button class="btn btn-primary" type="submit">Create Employee</button>

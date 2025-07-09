@@ -1,4 +1,7 @@
 <!-- Page Sidebar Start-->
+@php
+use App\Services\PermissionService;
+@endphp
 <div class="sidebar-wrapper" sidebar-layout="stroke-svg">
     <div>
         <div class="logo-wrapper">
@@ -52,8 +55,8 @@
                             <h6 class="lan-8">Management</h6>
                         </div>
                     </li>
-                    @if (!App\Services\PermissionService::has('View Employees')) 
-            
+
+                    @permission('View Employees')
                     <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title" href="#">
                             <svg class="stroke-icon">
@@ -69,7 +72,8 @@
                             <li><a href="{{ route('employees.create') }}">Add Employee</a></li>
                         </ul>
                     </li>
-                    @endif
+                    @endpermission
+
 
                     {{-- ✅ Project Management --}}
                     <li class="sidebar-list">
@@ -83,7 +87,7 @@
                             <span>Project Management</span>
                         </a>
                         <ul class="sidebar-submenu">
-                            <li><a href="{{ route('projects.index') }}">Project List</a></li>                             
+                            <li><a href="{{ route('projects.index') }}">Project List</a></li>
                             <li><a href="{{ route('projects.create') }}">Add Projects</a></li>
                         </ul>
                     </li>
@@ -120,7 +124,19 @@
                             </svg>
                             <span>Role & Permissions</span>
                         </a>
-                        
+
+                    </li>
+                    <li class="sidebar-list">
+                        <a class="sidebar-link sidebar-title" href="{{ route('documents.invoice') }}">
+                            <svg class="stroke-icon">
+                                <use href="{{ asset('frontend/assets/svg/icon-sprite.svg#stroke-to-do') }}"></use>
+                            </svg>
+                            <svg class="fill-icon">
+                                <use href="{{ asset('frontend/assets/svg/icon-sprite.svg#fill-to-do') }}"></use>
+                            </svg>
+                            <span>invoice</span>
+                        </a>
+
                     </li>
 
 
