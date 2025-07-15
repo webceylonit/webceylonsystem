@@ -1,7 +1,20 @@
 <div class="col-xxl-4 col-md-6 mb-3">
     <div class="project-box" style="border: {{ ($project->deadline < now() && $project->status != 'Completed') ? '2px solid red' : 'none' }};">
-        <span class="badge {{ $project->status == 'Completed' ? 'badge-success' : 'badge-primary' }}">{{ $project->status }}</span>
-        <h6>{{ $project->name }}</h6>
+        @php
+        $statusClasses = [
+        'New' => 'badge-info',
+        'In Progress' => 'badge-warning',
+        'Completed' => 'badge-success',
+        'On Hold' => 'badge-secondary',
+        'Cancelled' => 'badge-danger',
+        ];
+        @endphp
+
+        <span class="badge {{ $statusClasses[$project->status] ?? 'badge-primary' }}">
+            {{ $project->status }}
+        </span>
+
+        <h6>{{ $project->name }} ({{ $project->project_code }})</h6>
         <div class="media">
             <img class="img-20 me-1 rounded-circle" src="{{ asset('frontend/assets/images/user/user.png') }}" alt="">
             <div class="media-body">
@@ -21,8 +34,12 @@
         <!-- Progress -->
         <div class="project-status mt-4">
             <div class="row">
-                <div class="col-6"><p><strong>Tasks:</strong> {{ $project->tasks_count }} | {{ $project->completed_tasks }}</p></div>
-                <div class="col-6 text-end"><p><strong>{{ $project->progress }}% Complete</strong></p></div>
+                <div class="col-6">
+                    <p><strong>Tasks:</strong> {{ $project->tasks_count }} | {{ $project->completed_tasks }}</p>
+                </div>
+                <div class="col-6 text-end">
+                    <p><strong>{{ $project->progress }}% Complete</strong></p>
+                </div>
             </div>
             <div class="progress" style="height: 5px">
                 <div class="progress-bar" role="progressbar"
@@ -37,7 +54,7 @@
             <a href="{{ route('kanban.board', ['project_id' => $project->id]) }}" class="btn btn-blue btn-sm mt-1" style="background-color: blue; color: white; width: 100px;">Kanban</a>
             <a href="{{ route('sprints.index', ['project_id' => $project->id]) }}" class="btn btn-secondary btn-sm mt-1" style="width: 100px;">Sprints</a>
 
-           @permission('Edit Projects')
+            <!-- @permission('Edit Projects')
                 <a href="{{ route('projects.edit', $project->id) }}" class="btn btn-warning btn-sm mt-1" style="width: 100px;"><i class="icon-pencil-alt"></i></a>
                 <form action="{{ route('projects.destroy', $project->id) }}" method="POST" style="display: inline;">
                     @csrf 
@@ -46,7 +63,7 @@
                         <i class="icon-trash"></i>
                     </button>
                 </form>
-            @endpermission
+            @endpermission -->
         </div>
     </div>
 </div>

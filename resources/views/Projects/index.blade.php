@@ -36,18 +36,19 @@
                 </div> -->
 
                 {{-- ✅ Show "Create New Project" button only for Admin & Manager --}}
-                 
+
                 <div class="col-md-12 text-end mb-3">
                     <a class="btn btn-primary" href="{{ route('projects.create') }}">
                         <i data-feather="plus-square"></i> Create New Project
                     </a>
+                    <a class="btn btn-success" href="{{ route('projects.tableView') }}">Table View</a>
                 </div>
-                
+
             </div>
 
             <div class="card ">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <ul class="nav nav-tabs border-tab" id="top-tab" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" id="all-tab" data-bs-toggle="tab" href="#all-projects" role="tab">
@@ -56,12 +57,12 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="new-tab" data-bs-toggle="tab" href="#new-projects" role="tab">
-                                    <i data-feather="info"></i> New
+                                    <i data-feather="plus-circle"></i> New
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="inprogress-tab" data-bs-toggle="tab" href="#inprogress-projects" role="tab">
-                                    <i data-feather="edit"></i> In-Progress
+                                    <i data-feather="edit"></i> In Progress
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -69,7 +70,18 @@
                                     <i data-feather="check-circle"></i> Completed
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="onhold-tab" data-bs-toggle="tab" href="#onhold-projects" role="tab">
+                                    <i data-feather="pause-circle"></i> On Hold
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="cancelled-tab" data-bs-toggle="tab" href="#cancelled-projects" role="tab">
+                                    <i data-feather="x-circle"></i> Cancelled
+                                </a>
+                            </li>
                         </ul>
+
                     </div>
                 </div>
             </div>
@@ -107,6 +119,24 @@
             <div class="tab-pane fade" id="completed-projects" role="tabpanel">
                 <div class="row">
                     @foreach ($projects->where('status', 'Completed') as $project)
+                    @include('Projects.partials.project-box', ['project' => $project])
+                    @endforeach
+                </div>
+            </div>
+
+            <!-- On Hold Projects -->
+            <div class="tab-pane fade" id="onhold-projects" role="tabpanel">
+                <div class="row">
+                    @foreach ($projects->where('status', 'On Hold') as $project)
+                    @include('Projects.partials.project-box', ['project' => $project])
+                    @endforeach
+                </div>
+            </div>
+
+            <!-- Cancelled Projects -->
+            <div class="tab-pane fade" id="cancelled-projects" role="tabpanel">
+                <div class="row">
+                    @foreach ($projects->where('status', 'Cancelled') as $project)
                     @include('Projects.partials.project-box', ['project' => $project])
                     @endforeach
                 </div>

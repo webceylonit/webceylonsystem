@@ -11,13 +11,19 @@ class Project extends Model
     use HasFactory;
 
     protected $fillable = [
+        'project_code',
         'name',
         'description',
-        'start_date',  // Added start_date
+        'client_id',
+        'category_id',
+        'added_by',
+        'start_date',
         'deadline',
         'status',
         'priority',
-        'attachment',  // Added attachment for file uploads
+        'estimate_budget',
+        'attachment',
+        'additional_note',
     ];
 
     public function employees()
@@ -35,6 +41,25 @@ class Project extends Model
         return $this->hasMany(Message::class);
     }
 
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
 
-    
+
+    public function category()
+    {
+        return $this->belongsTo(ProjectCategory::class, 'category_id');
+    }
+
+
+    public function addedBy()
+    {
+        return $this->belongsTo(Employee::class, 'added_by');
+    }
+
+    public function authorizedPersons()
+    {
+        return $this->hasMany(AuthorizedPersons::class);
+    }
 }

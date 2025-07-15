@@ -46,8 +46,8 @@
                   <th>Role</th>
                   <th>Date of Join</th>
                   <th>Email</th>
-                  <th>Mobile 1</th>
-                  <th>Mobile 2</th>
+                  <th>Contact 1</th>
+                  <th>Contact 2</th>
                   <th>Reporting Manager</th>
                   <th>NIC</th>
                   <th>DOB</th>

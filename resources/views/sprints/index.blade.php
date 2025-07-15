@@ -22,7 +22,7 @@
 </div>
 
 <!-- Status Tabs -->
-<div class="card">
+<!-- <div class="card">
   <div class="row">
     <div class="col-md-6 mt-4">
       <ul class="nav nav-tabs border-tab" id="top-tab" role="tablist">
@@ -32,7 +32,7 @@
       </ul>
     </div>
   </div>
-</div>
+</div> -->
 
 <!-- Sprint List -->
 <div class="container-fluid">

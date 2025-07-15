@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Message;
@@ -27,17 +28,23 @@ class MessageController extends Controller
     // 📌 Send a new message in a project chat
     public function store(Request $request, $projectId)
     {
-        
+
         $request->validate([
             'message' => 'required|string',
             'project_id' => 'required|exists:projects,id' // ✅ Ensure project exists
         ]);
-    
+
         Message::create([
             'sender_id' => auth()->id(),
             'project_id' => $request->project_id, // ✅ Correct way to get project_id
             'message' => $request->message,
         ]);
         return back()->with('success', 'Message sent successfully!');
+    }
+
+    public function projectList()
+    {
+        $projects = auth()->user()->projects;
+        return view('messages.project_list', compact('projects'));
     }
 }

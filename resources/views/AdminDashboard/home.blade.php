@@ -33,7 +33,7 @@
                       <div class="media-body"> 
                         <div class="greeting-user">
                           <h4 class="f-w-600">Welcome to WebCeylon</h4>
-                          <p>Here whats happing in your company today</p>
+                          <p>Here what's happening in your company today</p>
                           <div class="whatsnew-btn">
                             <!-- <a class="btn btn-outline-white">Whats New !</a> -->
                           </div>

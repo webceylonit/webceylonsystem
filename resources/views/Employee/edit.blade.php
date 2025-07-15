@@ -112,7 +112,7 @@
                 {{-- Mobile Number 1 --}}
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label class="form-label">Mobile Number 1 *</label>
+                    <label class="form-label">Contact Number 1 *</label>
                     <input class="form-control" type="text" name="mobile_number" value="{{ old('mobile_number', $employee->mobile_number) }}" required>
                     @error('mobile_number') <small class="text-danger">{{ $message }}</small> @enderror
                   </div>
@@ -121,7 +121,7 @@
                 {{-- Mobile Number 2 --}}
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label class="form-label">Mobile Number 2</label>
+                    <label class="form-label">Contact Number 2</label>
                     <input class="form-control" type="text" name="mobile_number_2" value="{{ old('mobile_number_2', $employee->mobile_number_2) }}">
                     @error('mobile_number_2') <small class="text-danger">{{ $message }}</small> @enderror
                   </div>
