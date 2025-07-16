@@ -33,7 +33,9 @@
     <div class="col-sm-12">
       <div class="card">
         <div class="card-header pb-0 card-no-border">
+          @permission('Create Employees')
           <a href="{{ route('employees.create') }}" class="btn btn-primary">Add Employee +</a>
+          @endpermission
         </div>
         <div class="card-body">
           <div class="table-responsive">
@@ -63,13 +65,13 @@
                   <td>{{ $employee->employee_number }}</td>
                   <td>{{ $employee->name }}</td>
                   <td>{{ $employee->role->name }}</td>
-                  <td>{{ $employee->start_date }}</td>
+                  <td>{{ \Carbon\Carbon::parse($employee->start_date)->format('d-m-Y') }}</td>
                   <td>{{ $employee->email }}</td>
                   <td>{{ $employee->mobile_number }}</td>
                   <td>{{ $employee->mobile_number_2 ?? '-' }}</td>
                   <td>{{ $employee->rm->name ?? '-' }}</td>
                   <td>{{ $employee->nic }}</td>
-                  <td>{{ $employee->dob }}</td>
+                  <td>{{ \Carbon\Carbon::parse($employee->dob)->format('d-m-Y') }}</td>
                   <td>{{ $employee->gender }}</td>
                   <td>
                     @if ($employee->status === 'Available')
@@ -82,11 +84,14 @@
                   </td>
                   <td>
                     <ul class="action">
+                      @permission('Edit Employees')
                       <li class="edit">
                         <a href="{{ route('employees.edit', $employee->id) }}">
                           <i class="icon-pencil-alt"></i>
                         </a>
                       </li>
+                      @endpermission
+                      @permission('Delete Employees')
                       <li class="delete">
                         <form id="delete-form-{{ $employee->id }}" action="{{ route('employees.destroys', $employee->id) }}" method="POST" class="delete-form">
                           @csrf
@@ -96,6 +101,7 @@
                           </button>
                         </form>
                       </li>
+                      @endpermission
                     </ul>
                   </td>
                 </tr>

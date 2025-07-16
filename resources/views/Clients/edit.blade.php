@@ -45,25 +45,25 @@
         </div>
 
         <div class="col-md-6 mt-3">
-          <label class="form-label">Company Name</label>
+          <label class="form-label">Name</label>
           <input type="text" name="company" value="{{ old('company', $client->company) }}" class="form-control" placeholder="Enter company name">
           @error('company') <small class="text-danger">{{ $message }}</small> @enderror
         </div>
 
         <div class="col-md-6 mt-3">
-          <label class="form-label">Company Contact Number</label>
+          <label class="form-label">Contact Number</label>
           <input type="text" name="phone" value="{{ old('phone', $client->phone) }}" class="form-control" placeholder="Enter contact number">
           @error('phone') <small class="text-danger">{{ $message }}</small> @enderror
         </div>
 
         <div class="col-md-6 mt-3">
-          <label class="form-label">Company Email</label>
+          <label class="form-label">Email</label>
           <input type="email" name="company_email" value="{{ old('company_email', $client->company_email) }}" class="form-control" placeholder="Enter company email">
           @error('company_email') <small class="text-danger">{{ $message }}</small> @enderror
         </div>
 
         <div class="col-md-6 mt-3">
-          <label class="form-label">Company Address</label>
+          <label class="form-label">Address</label>
           <textarea name="address" rows="1" class="form-control" placeholder="Enter company address">{{ old('address', $client->address) }}</textarea>
           @error('address') <small class="text-danger">{{ $message }}</small> @enderror
         </div>
@@ -74,7 +74,7 @@
         </div>
 
         <div class="col-md-6 mt-3">
-          <label class="form-label">Client Name *</label>
+          <label class="form-label">Name *</label>
           <input type="text" name="name" value="{{ old('name', $client->name) }}" class="form-control" required>
           @error('name') <small class="text-danger">{{ $message }}</small> @enderror
         </div>

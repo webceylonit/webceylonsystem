@@ -40,23 +40,24 @@ class LoginController extends Controller
 
     private function redirectToDashboard($employee)
     {
-        switch ($employee->role->name) {
-            case 'Admin':
-                return redirect()->route('admin.dashboard');
-            case 'Manager':
-                return redirect()->route('manager.dashboard');
-            case 'QA':
-                return redirect()->route('qa.dashboard');
-            case 'InternDeveloper':
-                return redirect()->route('intern.dashboard');
-            case 'SeniorDeveloper':
-                return redirect()->route('senior.dashboard');
-            case 'Employee':
-                return redirect()->route('employee.dashboard');
-            case 'Designer':
-                return redirect()->route('designer.dashboard');
-            default:
-                return redirect()->route('dashboard'); // Default dashboard
-        }
+        return redirect()->route('dashboard');
+        // switch ($employee->role->name) {
+        //     case 'Admin':
+        //         return redirect()->route('admin.dashboard');
+        //     case 'Manager':
+        //         return redirect()->route('manager.dashboard');
+        //     case 'QA':
+        //         return redirect()->route('qa.dashboard');
+        //     case 'InternDeveloper':
+        //         return redirect()->route('intern.dashboard');
+        //     case 'SeniorDeveloper':
+        //         return redirect()->route('senior.dashboard');
+        //     case 'Employee':
+        //         return redirect()->route('employee.dashboard');
+        //     case 'Designer':
+        //         return redirect()->route('designer.dashboard');
+        //     default:
+        //         return redirect()->route('dashboard'); // Default dashboard
+        // }
     }
 }

@@ -5,12 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Permissions;
 use App\Models\Role;
 use App\Models\RoleHasPermissions;
+use App\Services\PermissionService;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
     public function index()
     {
+        if (!PermissionService::has('Role & Permissions')) {
+            return redirect()->route('unauthorized');
+        }
         $roles = Role::all();
         foreach ($roles as $role) {
             $role->permissions = RoleHasPermissions::where('role_id', $role->id)
@@ -23,6 +27,9 @@ class RoleController extends Controller
 
     public function create()
     {
+        if (!PermissionService::has('Role & Permissions')) {
+            return redirect()->route('unauthorized');
+        }
         $permissions = Permissions::all();
         return view('Roles.create', compact('permissions'));
     }
@@ -56,6 +63,9 @@ class RoleController extends Controller
 
     public function edit($id)
     {
+        if (!PermissionService::has('Role & Permissions')) {
+            return redirect()->route('unauthorized');
+        }
         $role = Role::findOrFail($id);
         $permissions = Permissions::all();
         $rolePermissions = RoleHasPermissions::where('role_id', $role->id)->pluck('permission_id')->toArray();
@@ -96,6 +106,9 @@ class RoleController extends Controller
 
     public function destroy($id)
     {
+        if (!PermissionService::has('Role & Permissions')) {
+            return redirect()->route('unauthorized');
+        }
         $role = Role::findOrFail($id);
 
         // Prevent deletion of Super Admin or other protected roles if needed

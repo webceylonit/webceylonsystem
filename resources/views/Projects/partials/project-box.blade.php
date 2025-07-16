@@ -24,11 +24,11 @@
         <p>{{ Str::limit($project->description, 100) }}</p>
         <div class="row details">
             <div class="col-6"><span>Start Date</span></div>
-            <div class="col-6 text-primary">{{ $project->start_date }}</div>
+            <div class="col-6 text-primary">{{ $project->start_date->format('d-m-Y') }}</div>
         </div>
         <div class="row details">
             <div class="col-6"><span>Deadline</span></div>
-            <div class="col-6 text-primary">{{ $project->deadline }}</div>
+            <div class="col-6 text-primary">{{ $project->deadline->format('d-m-Y') }}</div>
         </div>
 
         <!-- Progress -->
@@ -51,9 +51,12 @@
 
         <!-- Actions -->
         <div class="mt-3">
+            @permission('Kanbans')
             <a href="{{ route('kanban.board', ['project_id' => $project->id]) }}" class="btn btn-blue btn-sm mt-1" style="background-color: blue; color: white; width: 100px;">Kanban</a>
+            @endpermission
+            @permission('View Sprints')
             <a href="{{ route('sprints.index', ['project_id' => $project->id]) }}" class="btn btn-secondary btn-sm mt-1" style="width: 100px;">Sprints</a>
-
+            @endpermission
             <!-- @permission('Edit Projects')
                 <a href="{{ route('projects.edit', $project->id) }}" class="btn btn-warning btn-sm mt-1" style="width: 100px;"><i class="icon-pencil-alt"></i></a>
                 <form action="{{ route('projects.destroy', $project->id) }}" method="POST" style="display: inline;">

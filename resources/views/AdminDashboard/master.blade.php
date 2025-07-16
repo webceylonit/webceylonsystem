@@ -75,6 +75,42 @@
         @yield('content')
 
         <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            @if(session('success'))
+            Swal.fire({
+              title: 'Success!',
+              text: "{{ session('success') }}",
+              icon: 'success',
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer);
+                toast.addEventListener('mouseleave', Swal.resumeTimer);
+              }
+            });
+            @endif
+
+            @if(session('error'))
+            Swal.fire({
+              title: 'Error!',
+              text: "{{ session('error') }}",
+              icon: 'error',
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer);
+                toast.addEventListener('mouseleave', Swal.resumeTimer);
+              }
+            });
+            @endif
+          });
+
           function confirmDelete(formId) {
 
             Swal.fire({
@@ -127,7 +163,7 @@
   <script src="{{ asset('frontend/assets/js/chart/apex-chart/moment.min.js') }}"></script>
   <script src="{{ asset('frontend/assets/js/notify/bootstrap-notify.min.js') }}"></script>
   <script src="{{ asset('frontend/assets/js/dashboard/default.js') }}"></script>
-  <script src="{{ asset('frontend/assets/js/notify/index.js') }}"></script>
+  <!-- <script src="{{ asset('frontend/assets/js/notify/index.js') }}"></script> -->
   <script src="{{ asset('frontend/assets/js/typeahead/handlebars.js') }}"></script>
   <script src="{{ asset('frontend/assets/js/typeahead/typeahead.bundle.js') }}"></script>
   <script src="{{ asset('frontend/assets/js/typeahead/typeahead.custom.js') }}"></script>

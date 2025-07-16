@@ -2,52 +2,49 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ClientDocs;
 use App\Models\Project;
 use App\Models\ProjectDocs;
 use App\Services\PermissionService;
 use Illuminate\Http\Request;
 
-class ClientDocsController extends Controller
+class ProjectDocsController extends Controller
 {
     public function index()
     {
         if (!PermissionService::has('View Documents')) {
             return redirect()->route('unauthorized');
         }
-        $clientDocs = ClientDocs::latest()->get();
-        return view('ClientDoc.index', compact('clientDocs'));
+        $projectDocs = ProjectDocs::latest()->get();
+        return view('ProjectDoc.index', compact('projectDocs'));
     }
     public function create(Request $request)
     {
         if (!PermissionService::has('Create Documents')) {
             return redirect()->route('unauthorized');
         }
-        $client_id = $request->query('client_id');
-        $client = Project::findOrFail($client_id);
-        return view('ClientDoc.create', compact('client'));
+        $project_id = $request->query('project_id');
+        $project = Project::findOrFail($project_id);
+        return view('ProjectDoc.create', compact('project'));
     }
 
     public function store(Request $request)
     {
 
         $request->validate([
-            'client_id' => 'required|exists:clients,id',
-            'project_name' => 'nullable|string|max:255',
+            'project_id' => 'required|exists:projects,id',
             'document_name' => 'required|string|max:255',
             'description' => 'nullable|string',
         ]);
 
-        $doc = ClientDocs::create([
-            'client_id'      => $request->client_id,
-            'project_name'   => $request->project_name,
+        $doc = ProjectDocs::create([
+            'project_id'     => $request->project_id,
             'document_name'  => $request->document_name,
             'description'    => $request->description,
             'added_by'       => auth()->id(),
         ]);
 
         return redirect()
-            ->route('clientDocs.index')
+            ->route('projectDocs.index')
             ->with('success', 'Document added successfully.')
             ->with('new_doc_id', $doc->id)
             ->with('new_doc_name', $doc->document_name);
@@ -58,29 +55,27 @@ class ClientDocsController extends Controller
         if (!PermissionService::has('Edit Documents')) {
             return redirect()->route('unauthorized');
         }
-        $clientDoc = ClientDocs::with('client')->findOrFail($id);
+        $projectDoc = ProjectDocs::with('project')->findOrFail($id);
 
-        return view('ClientDoc.edit', compact('clientDoc'));
+        return view('ProjectDoc.edit', compact('projectDoc'));
     }
 
     public function update(Request $request, $id)
     {
 
         $request->validate([
-            'project_name' => 'nullable|string|max:255',
             'document_name' => 'required|string|max:255',
             'description' => 'nullable|string',
         ]);
 
-        $clientDoc = ClientDocs::findOrFail($id);
+        $projectDoc = ProjectDocs::findOrFail($id);
 
-        $clientDoc->update([
-            'project_name' => $request->project_name,
+        $projectDoc->update([
             'document_name' => $request->document_name,
             'description' => $request->description,
         ]);
 
-        return redirect()->route('clientDocs.index')->with('success', 'Document updated successfully.');
+        return redirect()->route('projectDocs.index')->with('success', 'Document updated successfully.');
     }
 
     public function destroy($id)
@@ -88,16 +83,16 @@ class ClientDocsController extends Controller
         if (!PermissionService::has('Delete Documents')) {
             return redirect()->route('unauthorized');
         }
-        $clientDoc = ClientDocs::findOrFail($id);
-        $clientDoc->delete();
+        $projectDoc = ProjectDocs::findOrFail($id);
+        $projectDoc->delete();
 
         return redirect()->back()->with('success', 'Document deleted successfully.');
     }
 
     public function print($id)
     {
-        $doc = ClientDocs::with(['client'])->findOrFail($id);
+        $doc = ProjectDocs::with(['project.client'])->findOrFail($id);
 
-        return view('Documents.client_doc', compact('doc'));
+        return view('Documents.project_doc', compact('doc'));
     }
 }

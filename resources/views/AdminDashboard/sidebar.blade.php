@@ -46,7 +46,7 @@ use App\Services\PermissionService;
                             <svg class="fill-icon">
                                 <use href="{{ asset('frontend/assets/svg/icon-sprite.svg#fill-home') }}"></use>
                             </svg>
-                            <span class="lan-3">Dashboard</span>
+                            <span class="">Dashboard</span>
                         </a>
                     </li>
 
@@ -55,9 +55,9 @@ use App\Services\PermissionService;
                             <h6 class="lan-8">Management</h6>
                         </div>
                     </li>
-
+                    @permission('View Employees')
                     <li class="sidebar-list">
-                        <a class="sidebar-link sidebar-title" href="#">
+                        <a class="sidebar-link sidebar-title" href="{{ route('clients.index') }}">
                             <svg class="stroke-icon">
                                 <use href="{{ asset('frontend/assets/svg/icon-sprite.svg#stroke-user') }}"></use>
                             </svg>
@@ -66,13 +66,11 @@ use App\Services\PermissionService;
                             </svg>
                             <span>Client Management</span>
                         </a>
-                        <ul class="sidebar-submenu">
-                            <li><a href="{{ route('clients.index') }}">Client List</a></li>
-                            <li><a href="{{ route('clients.create') }}">Add Client</a></li>
-                        </ul>
-                    </li>
 
-                    
+                    </li>
+                    @endpermission
+
+
                     {{-- ✅ Project Management --}}
                     <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title" href="#">
@@ -85,10 +83,33 @@ use App\Services\PermissionService;
                             <span>Project Management</span>
                         </a>
                         <ul class="sidebar-submenu">
+                            @permission('Project Grid View')
                             <li><a href="{{ route('projects.index') }}">Grid View</a></li>
+                            @endpermission
+                            @permission('Project Table View')
                             <li><a href="{{ route('projects.tableView') }}">Table View</a></li>
+                            @endpermission
                         </ul>
                     </li>
+
+                    @permission('View Documents')
+                    <li class="sidebar-list">
+                        <a class="sidebar-link sidebar-title" href="#">
+                            <svg class="stroke-icon">
+                                <use href="{{ asset('frontend/assets/svg/icon-sprite.svg#stroke-form') }}"></use>
+                            </svg>
+                            <svg class="fill-icon">
+                                <use href="{{ asset('frontend/assets/svg/icon-sprite.svg#fill-form') }}"></use>
+                            </svg>
+                            <span>Documents</span>
+                        </a>
+                        <ul class="sidebar-submenu">
+                            <li><a href="{{ route('clientDocs.index') }}">Client Docs</a></li>
+                            <li><a href="{{ route('projectDocs.index') }}">Project Docs</a></li>
+                            <li><a href="{{ route('invoices.index') }}">Invoices</a></li>
+                        </ul>
+                    </li>
+                    @endpermission
 
                     {{-- ✅ Message Management --}}
                     <li class="sidebar-list">
@@ -101,12 +122,12 @@ use App\Services\PermissionService;
                             </svg>
                             <span>Message Management</span>
                         </a>
-                        
+
                     </li>
 
                     @permission('View Employees')
                     <li class="sidebar-list">
-                        <a class="sidebar-link sidebar-title" href="#">
+                        <a class="sidebar-link sidebar-title" href="{{ route('employees.index') }}">
                             <svg class="stroke-icon">
                                 <use href="{{ asset('frontend/assets/svg/icon-sprite.svg#stroke-blog') }}"></use>
                             </svg>
@@ -115,13 +136,11 @@ use App\Services\PermissionService;
                             </svg>
                             <span>Employee Management</span>
                         </a>
-                        <ul class="sidebar-submenu">
-                            <li><a href="{{ route('employees.index') }}">Employee List</a></li>
-                            <li><a href="{{ route('employees.create') }}">Add Employee</a></li>
-                        </ul>
+
                     </li>
                     @endpermission
 
+                    @permission('Role & Permissions')
                     <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title" href="{{ route('role.index') }}">
                             <svg class="stroke-icon">
@@ -132,20 +151,10 @@ use App\Services\PermissionService;
                             </svg>
                             <span>Role & Permissions</span>
                         </a>
-
                     </li>
-                    <li class="sidebar-list">
-                        <a class="sidebar-link sidebar-title" href="{{ route('documents.invoice') }}">
-                            <svg class="stroke-icon">
-                                <use href="{{ asset('frontend/assets/svg/icon-sprite.svg#') }}"></use>
-                            </svg>
-                            <svg class="fill-icon">
-                                <use href="{{ asset('frontend/assets/svg/icon-sprite.svg#fill-to-do') }}"></use>
-                            </svg>
-                            <span>invoice</span>
-                        </a>
+                    @endpermission
 
-                    </li>
+                    
 
 
 

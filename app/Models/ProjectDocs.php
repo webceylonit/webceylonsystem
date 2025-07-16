@@ -4,19 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ClientDocs extends Model
+class ProjectDocs extends Model
 {
     protected $fillable = [
-        'client_id',
-        'project_name',
+        'project_id',
         'document_name',
         'description',
         'added_by'
     ];
 
-    public function client()
+    public function project()
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(Project::class);
     }
 
     public function addedBy()

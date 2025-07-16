@@ -46,7 +46,7 @@
         {{-- Company Name --}}
         <div class="col-md-6">
           <div class="mb-3">
-            <label class="form-label">Company Name</label>
+            <label class="form-label">Name</label>
             <input class="form-control" type="text" name="company" value="{{ old('company') }}" placeholder="Enter company name">
             @error('company') <small class="text-danger">{{ $message }}</small> @enderror
           </div>
@@ -55,7 +55,7 @@
         {{-- Company Contact --}}
         <div class="col-md-6">
           <div class="mb-3">
-            <label class="form-label">Company Contact Number</label>
+            <label class="form-label">Contact Number</label>
             <input class="form-control" type="text" name="phone" value="{{ old('phone') }}" placeholder="Enter company contact number">
             @error('phone') <small class="text-danger">{{ $message }}</small> @enderror
           </div>
@@ -64,7 +64,7 @@
         {{-- Company Email --}}
         <div class="col-md-6">
           <div class="mb-3">
-            <label class="form-label">Company Email</label>
+            <label class="form-label">Email</label>
             <input class="form-control" type="email" name="company_email" value="{{ old('company_email') }}" placeholder="Enter company email">
             @error('company_email') <small class="text-danger">{{ $message }}</small> @enderror
           </div>
@@ -73,7 +73,7 @@
         {{-- Company Address --}}
         <div class="col-md-6">
           <div class="mb-3">
-            <label class="form-label">Company Address</label>
+            <label class="form-label">Address</label>
             <textarea class="form-control" name="address" rows="1" placeholder="Enter company address">{{ old('address') }}</textarea>
             @error('address') <small class="text-danger">{{ $message }}</small> @enderror
           </div>
@@ -87,7 +87,7 @@
         {{-- Client Name --}}
         <div class="col-md-6">
           <div class="mb-3">
-            <label class="form-label">Client Name *</label>
+            <label class="form-label">Name *</label>
             <input class="form-control" type="text" name="name" value="{{ old('name') }}" placeholder="Enter client's full name" required>
             @error('name') <small class="text-danger">{{ $message }}</small> @enderror
           </div>

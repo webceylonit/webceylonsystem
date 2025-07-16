@@ -4,7 +4,7 @@
 
 <div class="container-fluid">
     <div class="card">
-        <form method="POST" action="{{ route('clientDocs.store') }}">
+        <form method="POST" action="{{ route('projectDocs.store') }}">
             @csrf
             <div class="card-header">
                 <h4 class="card-title">Add Document</h4>
@@ -12,21 +12,14 @@
             <div class="card-body row">
 
                 <div class="col-md-6 mb-3">
-                    <label>Client *</label>
-                    <input type="hidden" name="client_id" value="{{ $client->id }}">
-                    <input type="text" class="form-control" value="{{ $client->name }} ({{ $client->company_name ?? 'No company name' }})" readonly>
-                    @error('client_id')
+                    <label>Project *</label>
+                    <input type="hidden" name="project_id" value="{{ $project->id }}">
+                    <input type="text" class="form-control" value="{{ $project->name }} ({{ $project->project_code }})" readonly>
+                    @error('project_id')
                     <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>
 
-                <div class="col-md-6 mb-3">
-                    <label>Project Name</label>
-                    <input type="text" name="project_name" class="form-control" placeholder="Add name for project">
-                    @error('project_name')
-                    <small class="text-danger">{{ $message }}</small>
-                    @enderror
-                </div>
 
                 <div class="col-md-6 mb-3">
                     <label>Document Name *</label>

@@ -32,7 +32,9 @@
     <div class="col-sm-12">
       <div class="card">
         <div class="card-header pb-0 card-no-border">
+          @permission('Create Clients')
           <a href="{{ route('clients.create') }}" class="btn btn-primary">Add Client +</a>
+          @endpermission
         </div>
         <div class="card-body">
           <div class="table-responsive">
@@ -65,7 +67,7 @@
                     <span class="badge badge-light-danger">Inactive</span>
                     @endif
                   </td>
-                  
+
                   <td>
                     <ul class="action">
                       <li class="edit">
@@ -78,11 +80,14 @@
                           <i class="icon-plus" style="color:blue;"></i>
                         </a>
                       </li> -->
+                      @permission('Edit Clients')
                       <li class="edit">
                         <a href="{{ route('clients.edit', $client->id) }}">
                           <i class="icon-pencil-alt"></i>
                         </a>
                       </li>
+                      @endpermission
+                      @permission('Delete Clients')
                       <li class="delete">
                         <form id="delete-form-{{ $client->id }}" action="{{ route('clients.destroy', $client->id) }}" method="POST" class="delete-form">
                           @csrf
@@ -92,7 +97,7 @@
                           </button>
                         </form>
                       </li>
-
+                      @endpermission
 
                     </ul>
                   </td>

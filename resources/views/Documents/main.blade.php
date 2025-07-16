@@ -10,7 +10,7 @@
         @page {
             size: A4;
             margin-top: 50px;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             margin-left: 0;
             margin-right: 0;
         }
@@ -57,9 +57,9 @@
 
         /* === Content Area with Side Margins Only === */
         .content {
-            padding-left: 70px;
-            padding-right: 70px;
-            padding-top: 80px;
+            padding-left: 50px;
+            padding-right: 50px;
+            padding-top: 30px;
             /* Enough to clear header */
             padding-bottom: 80px;
             /* Enough to clear footer */
@@ -96,15 +96,20 @@
         <div class="header-line"></div>
     </div>
 
+    <div style="margin-top: 70px; text-align: center; font-size: 15px;">
+        <strong>WebCeylon Software Solutions</strong><br>
+        No 156/1/A, Kaduwela Road, Athurugiriya, Sri Lanka<br>
+        www.webceylon.com / info@webceylon.com / 0771788080
+    </div>
+
     @yield('content')
 
     <!-- Footer -->
-    <div class="footer">
-        <strong>webceylon Software Solutions</strong><br>
+    <!-- <div class="footer">
+        <strong>WebCeylon Software Solutions</strong><br>
         No 156/1/A, Kaduwela Road, Athurugiriya, Sri Lanka<br>
-        www.webceylon.com / info@webceylon.com<br>
-        0771788080
-    </div>
+        www.webceylon.com / info@webceylon.com / 0771788080
+    </div> -->
 
     @yield('scripts')
 </body>

@@ -1,6 +1,6 @@
 @extends('AdminDashboard.master')
 
-@section('title', 'Client Documents')
+@section('title', 'Project Documents')
 
 @section('content')
 
@@ -8,7 +8,7 @@
   <div class="page-title">
     <div class="row">
       <div class="col-6">
-        <h4>Client Documents</h4>
+        <h4>Project Documents</h4>
       </div>
       <div class="col-6">
         <ol class="breadcrumb">
@@ -20,7 +20,7 @@
             </a>
           </li>
           <li class="breadcrumb-item">Documents</li>
-          <li class="breadcrumb-item active">Clients</li>
+          <li class="breadcrumb-item active">Project</li>
         </ol>
       </div>
     </div>
@@ -41,8 +41,7 @@
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Client</th>
-                  <th>Project Name</th>
+                  <th>Project</th>
                   <th>Document Name</th>
                   <th>Created By</th>
                   <th>Created Date</th>
@@ -50,37 +49,36 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ($clientDocs as $cd)
+                @foreach ($projectDocs as $pd)
                 <tr>
                   <td>{{ $loop->iteration }}</td>
-                  <td>{{ $cd->client->name }} ({{ $cd->client->company_name ?? 'No Company' }})</td>
-                  <td>{{ $cd->project_name ?? 'Not Added' }} </td>
-                  <td>{{ $cd->document_name }} </td>
-                  <td>{{ $cd->addedBy->name }} </td>
-                  <td>{{ $cd->created_at->format('d-m-Y') }}</td>
+                  <td>{{ $pd->project->name }} ({{ $pd->project->project_code }})</td>
+                  <td>{{ $pd->document_name }} </td>
+                  <td>{{ $pd->addedBy->name }} </td>
+                  <td>{{ $pd->created_at->format('d-m-Y') }}</td>
                   
                   <td>
                     <ul class="action">
                         @permission('View Documents')
                       <li class="edit">
-                        <a href="{{ route('clientDocs.print', $cd->id) }}">
+                        <a href="{{ route('projectDocs.print', $pd->id) }}">
                           <i class="icon-printer" style="color: blue;"></i>
                         </a>
                       </li>
                       @endpermission
                       @permission('Edit Documents')
                       <li class="edit">
-                        <a href="{{ route('clientDocs.edit', $cd->id) }}">
+                        <a href="{{ route('projectDocs.edit', $pd->id) }}">
                           <i class="icon-pencil-alt"></i>
                         </a>
                       </li>
                       @endpermission
                       @permission('Delete Documents')
                       <li class="delete">
-                        <form id="delete-form-{{ $cd->id }}" action="{{ route('clientDocs.destroy', $cd->id) }}" method="POST" class="delete-form">
+                        <form id="delete-form-{{ $pd->id }}" action="{{ route('projectDocs.destroy', $pd->id) }}" method="POST" class="delete-form">
                           @csrf
                           @method('DELETE')
-                          <button type="button" class="delete-btn" onclick="confirmDelete('delete-form-{{ $cd->id }}');" style="border:none; background:none; cursor:pointer; padding:0;">
+                          <button type="button" class="delete-btn" onclick="confirmDelete('delete-form-{{ $pd->id }}');" style="border:none; background:none; cursor:pointer; padding:0;">
                             <i class="icon-trash" style="color:red;"></i>
                           </button>
                         </form>
@@ -104,7 +102,6 @@
 
 @section('scripts')
 @if (session('new_doc_id'))
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         Swal.fire({
@@ -116,7 +113,7 @@
             cancelButtonText: 'No, Thanks'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "{{ route('clientDocs.print', session('new_doc_id')) }}";
+                window.location.href = "{{ route('projectDocs.print', session('new_doc_id')) }}";
             }
         });
     });

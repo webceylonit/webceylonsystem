@@ -6,6 +6,7 @@ use App\Models\Client;
 use App\Models\Project;
 use App\Models\Employee;
 use App\Models\ProjectCategory;
+use App\Services\PermissionService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,6 +17,9 @@ class ProController extends Controller
      */
     public function index()
     {
+        if (!PermissionService::has('Project Grid View')) {
+            return redirect()->route('unauthorized');
+        }
         // Get the authenticated employee
         $employee = Auth::user();
 
@@ -47,12 +51,18 @@ class ProController extends Controller
 
     public function tableView()
     {
+        if (!PermissionService::has('Project Table View')) {
+            return redirect()->route('unauthorized');
+        }
         $projects = Project::latest()->get();
         return view('Projects.tableview', compact('projects'));
     }
 
     public function create(Request $request)
     {
+        if (!PermissionService::has('Create Projects')) {
+            return redirect()->route('unauthorized');
+        }
         $clients = Client::all();
         $categories = ProjectCategory::all();
 
@@ -128,6 +138,9 @@ class ProController extends Controller
 
     public function show(Project $project)
     {
+        if (!PermissionService::has('View Projects')) {
+            return redirect()->route('unauthorized');
+        }
         return view('Projects.show', compact('project'));
     }
 
@@ -136,6 +149,9 @@ class ProController extends Controller
      */
     public function edit(Project $project)
     {
+        if (!PermissionService::has('Edit Projects')) {
+            return redirect()->route('unauthorized');
+        }
         $clients = Client::all();
         $categories = ProjectCategory::all();
         $employees = Employee::all();
@@ -218,6 +234,9 @@ class ProController extends Controller
      */
     public function destroy(Project $project)
     {
+        if (!PermissionService::has('Delete Projects')) {
+            return redirect()->route('unauthorized');
+        }
         $project->delete();
 
         return redirect()->route('projects.tableView')->with('success', 'Project deleted successfully.');

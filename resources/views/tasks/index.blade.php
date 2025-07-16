@@ -10,11 +10,13 @@
         <h4>Tasks for {{ $sprint->name }}</h4>
       </div>
       <div class="col-6 text-end">
+        @permission('View Sprints')
         <a href="{{ route('sprints.index', ['project_id' => $sprint->project_id]) }}" class="btn btn-secondary">← Back to Sprint</a>
         {{-- ✅ Only Admin & Manager Can Add Tasks --}}
-        
+        @endpermission
+        @permission('Create Tasks')
           <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTaskModal">+ Add Task</button>
-        
+        @endpermission
       </div>
     </div>
   </div>
@@ -34,16 +36,20 @@
         </div>
         <div>
           <!-- Open Task Update Modal -->
+
           <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#updateTaskModal-{{ $task->id }}">Requirements</button>
 
+          @permission('Edit Tasks')
           <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editTaskModal-{{ $task->id }}">Edit</button>
-          
+          @endpermission
+
+          @permission('Delete Tasks')
           <form action="{{ route('tasks.destroy', $task->id) }}" method="POST" style="display:inline;">
             @csrf
             @method('DELETE')
             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
           </form>
-          
+          @endpermission
         </div>
       </li>
 

@@ -49,6 +49,9 @@ class EmployeeController extends Controller
 
     public function show($id)
     {
+        if (!PermissionService::has('View Employees')) {
+            return redirect()->route('unauthorized');
+        }
         $employee = Employee::findOrFail($id); // Fetch the employee by ID or throw a 404 error
         return view('employees.show', compact('employee')); // Return the show view with the employee data
     }

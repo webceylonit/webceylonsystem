@@ -33,14 +33,20 @@
         <div class="card-body">
             <div class="row mb-4">
                 <div class="col-12 text-end">
+                    @permission('Create Projects')
                     <a href="{{ route('projects.create', ['client_id' => $client->id]) }}" class="btn btn-success btn-sm">Create Project</a>
+                    @endpermission
                     <a href="{{ route('clientDocs.create', ['client_id' => $client->id]) }}" class="btn btn-info btn-sm">Create Document</a>
+                    @permission('Edit Clients')
                     <a href="{{ route('clients.edit', $client->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                    @endpermission
+                    @permission('Delete Clients')
                     <form action="{{ route('clients.destroy', $client->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this client?')">Delete</button>
                     </form>
+                    @endpermission
                 </div>
             </div>
 
@@ -105,7 +111,7 @@
                 </tr>
                 <tr>
                     <th>Added On</th>
-                    <td>{{ $client->created_at->format('Y-m-d') }}</td>
+                    <td>{{ $client->created_at->format('d-m-Y') }}</td>
                 </tr>
             </table>
 
@@ -133,8 +139,8 @@
                             <td>{{ $project->name }}</td>
                             <td>{{ $project->category->name ?? '-' }}</td>
                             <td>{{ $project->addedBy->name ?? '-' }}</td>
-                            <td>{{ $project->start_date }}</td>
-                            <td>{{ $project->deadline }}</td>
+                            <td>{{ $project->start_date->format('d-m-Y') }}</td>
+                            <td>{{ $project->deadline->format('d-m-Y') }}</td>
                             <td>
                                 @if ($project->status === 'Completed')
                                 <span class="badge badge-light-success">{{ $project->status }}</span>
@@ -149,7 +155,9 @@
                                 @endif
                             </td>
                             <td>
+                                @permission('View Projects')
                                 <a href="{{ route('projects.show', $project->id) }}" class="btn btn-primary btn-sm">View</a>
+                                @endpermission
                             </td>
                         </tr>
                         @endforeach

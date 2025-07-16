@@ -33,8 +33,12 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header pb-0 card-no-border">
+                    @permission('Create Projects')
                     <a class="btn btn-primary" href="{{ route('projects.create') }}">Create New Project +</a>
+                    @endpermission
+                    @permission('Project Grid View')
                     <a class="btn btn-success" href="{{ route('projects.index') }}">Grid View</a>
+                    @endpermission
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -76,21 +80,26 @@
                                         @endif
                                     </td>
                                     <td>{{ $project->priority }}</td>
-                                    <td>{{ $project->start_date }}</td>
-                                    <td>{{ $project->deadline }}</td>
-                                    <td>{{ $project->created_at->format('Y-m-d') }}</td>
+                                    <td>{{ $project->start_date->format('d-m-Y') }}</td>
+                                    <td>{{ $project->deadline->format('d-m-Y') }}</td>
+                                    <td>{{ $project->created_at->format('d-m-Y') }}</td>
                                     <td>
                                         <ul class="action">
+                                            @permission('View Projects')
                                             <li class="edit">
                                                 <a href="{{ route('projects.show', $project->id) }}">
                                                     <i class="icon-eye" style="color:blue;"></i>
                                                 </a>
                                             </li>
+                                            @endpermission
+                                            @permission('Edit Projects')
                                             <li class="edit">
                                                 <a href="{{ route('projects.edit', $project->id) }}">
                                                     <i class="icon-pencil-alt"></i>
                                                 </a>
                                             </li>
+                                            @endpermission
+                                            @permission('Delete Projects')
                                             <li class="delete">
                                                 <form id="delete-form-{{ $project->id }}" action="{{ route('projects.destroy', $project->id) }}" method="POST" class="delete-form">
                                                     @csrf
@@ -100,6 +109,7 @@
                                                     </button>
                                                 </form>
                                             </li>
+                                            @endpermission
                                         </ul>
                                     </td>
                                 </tr>

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\ProjectDocsController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\LoginController;
@@ -11,6 +13,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClientDocsController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\QAController;
 use App\Http\Controllers\InternController;
@@ -50,14 +53,14 @@ Route::middleware(['auth:employee'])->group(function () {
 
 
     // Dashboards
-    Route::get('/dashboard', fn() => view('AdminDashboard.home'))->name('dashboard');
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
-    Route::get('/manager', [ManagerController::class, 'index'])->name('manager.dashboard');
-    Route::get('/qa', [QAController::class, 'index'])->name('qa.dashboard');
-    Route::get('/intern', [InternController::class, 'index'])->name('intern.dashboard');
-    Route::get('/senior', [SeniorController::class, 'index'])->name('senior.dashboard');
-    Route::get('/employee', [EmployeeController::class, 'index'])->name('employee.dashboard');
-    Route::get('/designer', [DesignerController::class, 'index'])->name('designer.dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    // Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
+    // Route::get('/manager', [ManagerController::class, 'index'])->name('manager.dashboard');
+    // Route::get('/qa', [QAController::class, 'index'])->name('qa.dashboard');
+    // Route::get('/intern', [InternController::class, 'index'])->name('intern.dashboard');
+    // Route::get('/senior', [SeniorController::class, 'index'])->name('senior.dashboard');
+    // Route::get('/employee', [EmployeeController::class, 'index'])->name('employee.dashboard');
+    // Route::get('/designer', [DesignerController::class, 'index'])->name('designer.dashboard');
 
     // Role management
     Route::get('/roles', [RoleController::class, 'index'])->name('role.index');
@@ -147,9 +150,29 @@ Route::middleware(['auth:employee'])->group(function () {
     Route::delete('/clients/delete/{client}', [ClientController::class, 'destroy'])->name('clients.destroy');
     Route::get('/clients/show/{client}', [ClientController::class, 'show'])->name('clients.show');
 
-    Route::get('clientDocs', [ClientDocsController::class, 'index'])->name('clientDocs.index');
+    Route::get('clientDocs/all', [ClientDocsController::class, 'index'])->name('clientDocs.index');
     Route::get('clientDocs/create', [ClientDocsController::class, 'create'])->name('clientDocs.create');
     Route::post('clientDocs/store', [ClientDocsController::class, 'store'])->name('clientDocs.store');
+    Route::get('/clientDocs/edit/{clientDoc}', [ClientDocsController::class, 'edit'])->name('clientDocs.edit');
+    Route::put('/clientDocs/update/{clientDoc}', [ClientDocsController::class, 'update'])->name('clientDocs.update');
+    Route::delete('/clientDocs/delete/{clientDoc}', [ClientDocsController::class, 'destroy'])->name('clientDocs.destroy');
+    Route::get('/clientDocs/show/{clientDoc}', [ClientDocsController::class, 'print'])->name('clientDocs.print');
+
+    Route::get('/projectDocs/all', [ProjectDocsController::class, 'index'])->name('projectDocs.index');
+    Route::get('/projectDocs/create', [ProjectDocsController::class, 'create'])->name('projectDocs.create');
+    Route::post('/projectDocs/store', [ProjectDocsController::class, 'store'])->name('projectDocs.store');
+    Route::get('/projectDocs/edit/{projectDoc}', [ProjectDocsController::class, 'edit'])->name('projectDocs.edit');
+    Route::put('/projectDocs/update/{projectDoc}', [ProjectDocsController::class, 'update'])->name('projectDocs.update');
+    Route::delete('/projectDocs/delete/{projectDoc}', [ProjectDocsController::class, 'destroy'])->name('projectDocs.destroy');
+    Route::get('/projectDocs/show/{projectDoc}', [ProjectDocsController::class, 'print'])->name('projectDocs.print');
+
+    Route::get('/invoice/all', [InvoiceController::class, 'index'])->name('invoices.index');
+    Route::get('/invoice/create', [InvoiceController::class, 'create'])->name('invoices.create');
+    Route::post('/invoice/store', [InvoiceController::class, 'store'])->name('invoices.store');
+    Route::get('/invoice/edit/{invoice}', [InvoiceController::class, 'edit'])->name('invoices.edit');
+    Route::put('/invoice/update/{invoice}', [InvoiceController::class, 'update'])->name('invoices.update');
+    Route::delete('/invoice/delete/{invoice}', [InvoiceController::class, 'destroy'])->name('invoices.destroy');
+    Route::get('/invoice/show/{invoice}', [InvoiceController::class, 'print'])->name('invoices.print');
 });
 
 // Auth scaffolding routes (if using Laravel Breeze or similar)

@@ -38,10 +38,14 @@
                 {{-- ✅ Show "Create New Project" button only for Admin & Manager --}}
 
                 <div class="col-md-12 text-end mb-3">
+                    @permission('Create Projects')
                     <a class="btn btn-primary" href="{{ route('projects.create') }}">
                         <i data-feather="plus-square"></i> Create New Project
                     </a>
+                    @endpermission
+                    @permission('Project Table View')
                     <a class="btn btn-success" href="{{ route('projects.tableView') }}">Table View</a>
+                    @endpermission
                 </div>
 
             </div>

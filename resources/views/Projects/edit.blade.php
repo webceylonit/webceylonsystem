@@ -91,12 +91,13 @@
 
                 <div class="col-md-6 mb-3">
                   <label class="form-label">Start Date *</label>
-                  <input class="form-control" type="date" name="start_date" value="{{ $project->start_date }}" required>
+                  <input class="form-control" type="date" name="start_date" value="{{ $project->start_date->format('Y-m-d') }}" required>
+
                 </div>
 
                 <div class="col-md-6 mb-3">
                   <label class="form-label">Deadline *</label>
-                  <input class="form-control" type="date" name="deadline" value="{{ $project->deadline }}" required>
+                  <input class="form-control" type="date" name="deadline" value="{{ $project->deadline->format('Y-m-d') }}" required>
                 </div>
 
                 <div class="col-md-6 mb-3">

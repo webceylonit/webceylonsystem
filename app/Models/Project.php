@@ -26,6 +26,12 @@ class Project extends Model
         'additional_note',
     ];
 
+    protected $casts = [
+    'start_date' => 'date',
+    'deadline' => 'date',
+];
+
+
     public function employees()
     {
         return $this->belongsToMany(Employee::class, 'project_employee');
