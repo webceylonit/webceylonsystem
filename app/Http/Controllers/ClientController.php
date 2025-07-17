@@ -40,6 +40,12 @@ class ClientController extends Controller
         ]);
 
         $validated['added_by'] = Auth::id();
+    
+        $lastClient = Client::latest('id')->first();
+        $nextId = $lastClient ? $lastClient->id + 1 : 1;
+        $clientCode = 'CLT' . str_pad($nextId, 5, '0', STR_PAD_LEFT);
+
+        $validated['client_code'] = $clientCode;
 
         $client = Client::create($validated);
 

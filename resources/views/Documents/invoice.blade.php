@@ -1,4 +1,4 @@
-@extends('Documents.main')
+@extends('Documents.main_invoice')
 
 @section('title', 'Invoice')
 
@@ -42,18 +42,18 @@
     .totals-table {
         width: 100%;
         border-collapse: collapse;
-        margin-top: 10px;
+
         margin-bottom: 15px;
         float: right;
     }
 
     .totals-table td {
-        padding: 6px 8px;
+        padding: 8px;
     }
 
     .totals-table td:first-child {
         border: none;
-        width: 70%;
+        width: 72%;
         text-align: right;
     }
 
@@ -70,13 +70,17 @@
     .terms,
     .bank-details {
         margin-top: 30px;
-        font-size: 14px;
+        font-size: 12px;
     }
 
     .note {
         margin-top: 20px;
         font-size: 13px;
         font-style: italic;
+    }
+
+    .totals-table tr:first-child td:last-child {
+        border-top: none;
     }
 </style>
 
@@ -123,14 +127,27 @@
             </tr>
         </thead>
         <tbody>
-             @foreach ($doc->items as $index => $item)
-            <tr>
-                <td>{{ $index + 1 }}</td>
-                <td>{{ $item->item }}</td>
-                <td>{{ number_format($item->amount, 2) }}</td>
-            </tr>
-            @endforeach
-        </tbody>
+    @foreach ($doc->items as $index => $item)
+    <tr>
+        <td>{{ $index + 1 }}</td>
+        <td>{{ $item->item }}</td>
+        <td>{{ number_format($item->amount, 2) }}</td>
+    </tr>
+    @endforeach
+
+    @php
+        $emptyRows = max(0, 3 - $doc->items->count());
+    @endphp
+
+    @for ($i = 0; $i < $emptyRows; $i++)
+    <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+    @endfor
+</tbody>
+
     </table>
 
     <table class="totals-table">
@@ -154,7 +171,7 @@
 
     <div class="terms">
         <p><strong>Payment Terms:</strong>
-        This invoice is structured for payment in the following three instalments:</p>
+            This invoice is structured for payment in the following three instalments:</p>
         <ol>
             <li>First Instalment – 50% of the invoice value is due immediately upon receipt of this invoice.</li>
             <li>Second Instalment – 40% of the invoice value is due upon 60% completion of the project.</li>

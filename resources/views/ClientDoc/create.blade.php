@@ -14,7 +14,7 @@
                 <div class="col-md-6 mb-3">
                     <label>Client *</label>
                     <input type="hidden" name="client_id" value="{{ $client->id }}">
-                    <input type="text" class="form-control" value="{{ $client->name }} ({{ $client->company_name ?? 'No company name' }})" readonly>
+                    <input type="text" class="form-control" value="{{ $client->name }} - {{ $client->client_code }} ({{ $client->company_name ?? 'No company name' }})" readonly>
                     @error('client_id')
                     <small class="text-danger">{{ $message }}</small>
                     @enderror

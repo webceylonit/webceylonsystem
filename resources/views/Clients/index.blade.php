@@ -42,6 +42,7 @@
               <thead>
                 <tr>
                   <th>#</th>
+                  <th>Code</th>
                   <th>Name</th>
                   <th>Designation</th>
                   <th>Contact</th>
@@ -55,6 +56,7 @@
                 @foreach ($clients as $index => $client)
                 <tr>
                   <td>{{ $index + 1 }}</td>
+                  <td>{{ $client->client_code }}</td>
                   <td>{{ $client->name }}</td>
                   <td>{{ $client->designation }}</td>
                   <td>{{ $client->client_contact }}</td>

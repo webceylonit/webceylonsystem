@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\ClientDocs;
 use App\Models\Project;
 use App\Models\ProjectDocs;
@@ -24,7 +25,7 @@ class ClientDocsController extends Controller
             return redirect()->route('unauthorized');
         }
         $client_id = $request->query('client_id');
-        $client = Project::findOrFail($client_id);
+        $client = Client::findOrFail($client_id);
         return view('ClientDoc.create', compact('client'));
     }
 

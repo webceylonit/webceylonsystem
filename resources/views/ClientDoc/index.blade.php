@@ -53,7 +53,7 @@
                 @foreach ($clientDocs as $cd)
                 <tr>
                   <td>{{ $loop->iteration }}</td>
-                  <td>{{ $cd->client->name }} ({{ $cd->client->company_name ?? 'No Company' }})</td>
+                  <td>{{ $cd->client->client_code }} - {{ $cd->client->name }} ({{ $cd->client->company_name ?? 'No Company' }})</td>
                   <td>{{ $cd->project_name ?? 'Not Added' }} </td>
                   <td>{{ $cd->document_name }} </td>
                   <td>{{ $cd->addedBy->name }} </td>

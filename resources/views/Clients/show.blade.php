@@ -30,6 +30,9 @@
 
 <div class="container-fluid mt-3">
     <div class="card">
+        <div class="card-header">
+      <h4 class="card-title ">{{ $client->client_code }}</h4>
+    </div>
         <div class="card-body">
             <div class="row mb-4">
                 <div class="col-12 text-end">

@@ -161,7 +161,7 @@
           </tr>
           <tr>
             <th>Client Name</th>
-            <td>{{ $project->client->name ?? '-' }}</td>
+            <td>{{ $project->client->name ?? '-' }} - {{ $project->client->client_code ?? '-' }}</td>
           </tr>
           <tr>
             <th>Designation</th>
