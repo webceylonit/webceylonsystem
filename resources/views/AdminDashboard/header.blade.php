@@ -62,20 +62,26 @@
                         </div>
                     </div>
                     <ul class="profile-dropdown onhover-show-div">
-                        <li><a href="{{route('profile.edit')}}"><i data-feather="user"></i><span>Profile</span></a></li>
-                        <!-- <li><a href="#"><i data-feather="settings"></i><span>Settings</span></a></li> -->
-                        {{-- ✅ Logout Link --}}
-                        <li>
-                            <a href="{{ route('logout') }}"
-                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                <i data-feather="log-out"></i>
-                                <span>Log out</span>
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </li>
-                    </ul>
+                      <li>
+                          <a href="{{ route('profile.edit') }}">
+                              <i data-feather="user"></i>
+                              <span>Profile</span>
+                          </a>
+                      </li>
+
+                      {{-- ✅ Updated Logout Link --}}
+                      <li>
+                          <a href="{{ route('userlogout') }}"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                              <i data-feather="log-out"></i>
+                              <span>Log out</span>
+                          </a>
+                          <form id="logout-form" action="{{ route('userlogout') }}" method="POST" class="d-none">
+                              @csrf
+                          </form>
+                      </li>
+                  </ul>
+
                 </li>
             </ul>
           </div>

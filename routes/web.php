@@ -20,6 +20,7 @@ use App\Http\Controllers\InternController;
 use App\Http\Controllers\SeniorController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\DesignerController;
+use App\Http\Controllers\CustomLoginController;
 
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ProController;
@@ -33,19 +34,21 @@ Route::get('/', function () {
     if (auth()->check()) {
         return redirect()->route('dashboard');
     }
-    return redirect()->route('loginpage');
+    return redirect()->route('userlogin');
 });
 
-// Guest login routes
-Route::middleware('guest')->group(function () {
-    Route::get('/login-page', [LoginController::class, 'showLoginForm'])->name('loginpage');
-    Route::post('/login-page', [LoginController::class, 'login']);
-});
+
+
+
+Route::get('/login-page', [CustomLoginController::class, 'showLoginForm'])->name('userlogin');
+Route::post('/login-page', [CustomLoginController::class, 'login'])->name('userlogin');
+Route::post('/logout-page', [CustomLoginController::class, 'logout'])->name('userlogout');
+
 
 // Authenticated routes
 Route::middleware(['auth:employee'])->group(function () {
 
-    Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
+    
 
     Route::get('/unauthorized', function () {
         return view('errors.unauthorized');
@@ -175,5 +178,4 @@ Route::middleware(['auth:employee'])->group(function () {
     Route::get('/invoice/show/{invoice}', [InvoiceController::class, 'print'])->name('invoices.print');
 });
 
-// Auth scaffolding routes (if using Laravel Breeze or similar)
-require __DIR__ . '/auth.php';
+

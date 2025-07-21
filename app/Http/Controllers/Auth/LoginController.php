@@ -12,7 +12,7 @@ class LoginController extends Controller
         if (Auth::check()) {
             return redirect()->route('dashboard'); // Redirect if already logged in
         }
-        return view('mainpages.login');
+        return view('mainpages.login.hkjhksdf');
     }
 
     public function login(Request $request)

@@ -42,7 +42,7 @@
             <div>
               <div style="display: flex; justify-content: center;"><a class="logo text-start" ><img class="img-fluid for-light" style="width: 200px;" src="{{ asset('frontend/assets/images/webceylon.png') }}" alt="looginpage"><img class="img-fluid for-dark" style="width: 200px;" src="{{ asset('frontend/assets/images/webceylon.png') }}" alt="looginpage"></a></div>
               <div class="login-main"> 
-              <form class="theme-form" method="POST" action="{{ route('loginpage') }}">
+              <form class="theme-form" method="POST" action="{{ route('userlogin') }}">
                     @csrf  {{-- CSRF Protection --}}
                     
                     <h4>Sign in to account</h4>
@@ -69,20 +69,13 @@
                         @enderror
                     </div>
 
-                    {{-- Remember Me & Forgot Password --}}
-                    <div class="form-group mb-0">
-                        <div class="checkbox p-0">
-                            <input id="checkbox1" type="checkbox" name="remember">
-                            <label class="text-muted" for="checkbox1">Remember password</label>
-                        </div>
-                        <a class="link" href="{{ route('password.request') }}">Forgot password?</a>
-                    </div>
+                    
 
                     {{-- Submit Button --}}
                     <div class="text-end mt-3">
                         <button class="btn btn-primary btn-block w-100" type="submit">Sign in</button>
                     </div>
-                </form>
+              </form>
 
               </div>
             </div>
