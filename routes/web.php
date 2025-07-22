@@ -41,7 +41,7 @@ Route::get('/', function () {
 
 
 Route::get('/login-page', [CustomLoginController::class, 'showLoginForm'])->name('userlogin');
-Route::post('/login-page', [CustomLoginController::class, 'login'])->name('userlogin');
+Route::post('/login-page', [CustomLoginController::class, 'login'])->name('login.process');
 Route::post('/logout-page', [CustomLoginController::class, 'logout'])->name('userlogout');
 
 

@@ -16,20 +16,25 @@ class CustomLoginController extends Controller
 
     public function login(Request $request)
     {
-        //dd($request);
+        // Validate input (optional but recommended)
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string',
+        ]);
+
         $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials)) {
-            // Login successful
+        // Explicitly use the 'employee' guard
+        if (Auth::guard('employee')->attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard'); // redirect to your preferred page
-        }
+            return redirect('/dashboard'); // safer
+        }        
 
-        // Login failed
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ]);
     }
+
 
     public function logout(Request $request)
     {

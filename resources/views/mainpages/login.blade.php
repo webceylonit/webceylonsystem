@@ -42,7 +42,7 @@
             <div>
               <div style="display: flex; justify-content: center;"><a class="logo text-start" ><img class="img-fluid for-light" style="width: 200px;" src="{{ asset('frontend/assets/images/webceylon.png') }}" alt="looginpage"><img class="img-fluid for-dark" style="width: 200px;" src="{{ asset('frontend/assets/images/webceylon.png') }}" alt="looginpage"></a></div>
               <div class="login-main"> 
-              <form class="theme-form" method="POST" action="{{ route('userlogin') }}">
+              <form class="theme-form" method="POST" action="{{ route('login.process') }}">
                     @csrf  {{-- CSRF Protection --}}
                     
                     <h4>Sign in to account</h4>
