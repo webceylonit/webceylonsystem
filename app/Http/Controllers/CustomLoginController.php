@@ -25,7 +25,6 @@ class CustomLoginController extends Controller
 
         $credentials = $request->only('email', 'password');
 
-        // Explicitly use the 'employee' guard
         if (Auth::guard('employee')->attempt($credentials)) {
             $request->session()->regenerate();
             return redirect('/dashboard'); // safer
