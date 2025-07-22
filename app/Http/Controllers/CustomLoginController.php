@@ -16,6 +16,7 @@ class CustomLoginController extends Controller
 
     public function login(Request $request)
     {
+        
         // Validate input (optional but recommended)
         $request->validate([
             'email' => 'required|email',
