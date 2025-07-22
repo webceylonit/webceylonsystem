@@ -185,7 +185,6 @@
 </div>
 
 <!-- Add Task Modal -->
-@if(Auth::user()->role->name === 'Admin' || Auth::user()->role->name === 'Manager')
 <div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -247,7 +246,6 @@
     </div>
   </div>
 </div>
-@endif
 @endsection
 
 
