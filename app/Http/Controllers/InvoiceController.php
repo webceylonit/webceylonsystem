@@ -35,12 +35,12 @@ class InvoiceController extends Controller
         $project = Project::findOrFail($request->project_id);
 
         if ($request->type === 'commercial') {
-            return view('invoices.create_commercial', compact('project'));
+            return view('Invoices.create_commercial', compact('project'));
         } elseif ($request->type === 'tax') {
             return view('invoices.create_tax', compact('project'));
         } else {
             // Fallback or show type selector again
-            return view('invoices.create', compact('project'));
+            return view('Invoices.create', compact('project'));
         }
     }
 
