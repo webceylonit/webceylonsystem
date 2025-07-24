@@ -57,7 +57,7 @@
                   <td>{{ $invoice->invoice_number }} </td>
                   <td>{{ $invoice->project->name }} ({{ $invoice->project->project_code }})</td>
                   <td>{{ $invoice->project->client->name }} </td>
-                  <td>{{ $invoice->total_amount }} </td>
+                  <td>{{ $invoice->final_total }} </td>
                   <td>{{ $invoice->addedBy->name }} </td>
                   <td>{{ $invoice->created_at->format('d-m-Y') }}</td>
 
