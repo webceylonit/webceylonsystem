@@ -10,11 +10,11 @@
         ];
         @endphp
 
-        <span class="badge {{ $statusClasses[$project->status] ?? 'badge-primary' }}">
+        <span class="badge {{ $statusClasses[$project->status] ?? 'badge-primary' }} mt-3">
             {{ $project->status }}
         </span>
 
-        <h6>{{ $project->name }} ({{ $project->project_code }})</h6>
+        <h6>{{ $project->name }}</h6>
         <div class="media">
             <img class="img-20 me-1 rounded-circle" src="{{ asset('frontend/assets/images/user/user.png') }}" alt="">
             <div class="media-body">

@@ -59,7 +59,7 @@
                   
                   <td>
                     <ul class="action">
-                        @permission('View Documents')
+                      @permission('View Documents')
                       <li class="edit">
                         <a href="{{ route('projectDocs.print', $pd->id) }}">
                           <i class="icon-printer" style="color: blue;"></i>

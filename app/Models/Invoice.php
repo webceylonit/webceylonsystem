@@ -12,10 +12,16 @@ class Invoice extends Model
     protected $fillable = [
         'invoice_number',
         'project_id',
-        'sub_total',
-        'sscl',
-        'vat',
-        'total_amount',
+        'type',                  // add type: commercial or tax
+        'client_vat_no',         // new
+        'discount_percentage',   // new
+        'discount_amount',       // new
+        'after_discount_total',  // new
+        'sscl',                  // already exists
+        'after_sscl_total',      // new
+        'vat',                   // already exists
+        'total_amount',          // rename to final total for clarity (optional)
+        'final_total',           // if you keep both, include this (optional)
         'added_by',
     ];
 

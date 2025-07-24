@@ -20,7 +20,7 @@ class KanbanController extends Controller
     {
         $request->validate([
             'task_id' => 'required|exists:tasks,id',
-            'status' => 'required|in:Pending,In Progress,Done',
+            'status' => 'required|in:Pending,In Progress,Done,Approval',
         ]);
 
         $task = Task::findOrFail($request->task_id);

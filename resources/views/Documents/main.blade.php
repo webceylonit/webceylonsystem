@@ -16,7 +16,7 @@
         }
 
         body {
-            font-family: DejaVu Sans, sans-serif;
+            font-family: Aptos, sans-serif;
             font-size: 13px;
             margin: 0;
             color: #000;
@@ -41,7 +41,7 @@
         }
 
         .header-logo {
-            padding: 0 30px;
+            padding:20px 0px 15px 0px;
 
         }
 
@@ -60,8 +60,7 @@
             padding-left: 50px;
             padding-right: 50px;
             padding-top: 60px;
-            /* Enough to clear header */
-            padding-bottom: 40px;
+            padding-bottom: 0px;
             /* Enough to clear footer */
         }
 
@@ -70,17 +69,19 @@
         /* === Footer === */
         .footer {
             position: fixed;
-            bottom: 30px;
+            bottom: 5px;
             left: 0;
             right: 0;
             text-align: center;
-            font-size: 12px;
+            font-size: 13px;
             border-top: 1px solid #ccc;
             padding-top: 8px;
+            height: 80px;
         }
 
         .footer strong {
             font-weight: bold;
+            padding-top:5px;
         }
 
         
@@ -93,24 +94,19 @@
     <div class="header-wrapper">
         <div class="header-orange"></div>
         <div class="header-logo">
-            <img src="{{ asset('frontend/assets/images/webceylon.png') }}" alt="Webceylon Logo">
+            <img src="{{ asset('frontend/assets/images/Picture2.png') }}" alt="Webceylon Logo">
         </div>
         <div class="header-line"></div>
     </div>
 
-    <!-- <div style="margin-top: 70px; text-align: center; font-size: 15px;">
-        <strong>WebCeylon Software Solutions</strong><br>
-        No 156/1/A, Kaduwela Road, Athurugiriya, Sri Lanka<br>
-        www.webceylon.com / info@webceylon.com / 077 995 4063
-    </div> -->
-
     @yield('content')
 
     <!-- Footer -->
-    <div class="footer">
+    <div class="footer" style="font-family: 'Aptos', sans-serif;">
         <strong>WebCeylon Software Solutions</strong><br>
         No 156/1/A, Kaduwela Road, Athurugiriya, Sri Lanka<br>
-        www.webceylon.com / info@webceylon.com / 077 995 4063
+        www.webceylon.com / info@webceylon.com <br>
+        +94 77 995 4063
     </div>
 
     @yield('scripts')

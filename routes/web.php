@@ -171,6 +171,7 @@ Route::middleware(['auth:employee'])->group(function () {
 
     Route::get('/invoice/all', [InvoiceController::class, 'index'])->name('invoices.index');
     Route::get('/invoice/create', [InvoiceController::class, 'create'])->name('invoices.create');
+    Route::get('/invoices/create/separate', [InvoiceController::class, 'createinvoices'])->name('invoices.createseparate');
     Route::post('/invoice/store', [InvoiceController::class, 'store'])->name('invoices.store');
     Route::get('/invoice/edit/{invoice}', [InvoiceController::class, 'edit'])->name('invoices.edit');
     Route::put('/invoice/update/{invoice}', [InvoiceController::class, 'update'])->name('invoices.update');

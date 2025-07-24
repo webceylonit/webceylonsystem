@@ -35,7 +35,7 @@
                     <h3 style="margin-top:50px; margin-bottom: 20px;">Project List</h3>
                 </div> -->
 
-                {{-- ✅ Show "Create New Project" button only for Admin & Manager --}}
+                
 
                 <div class="col-md-12 text-end mb-3">
                     @permission('Create Projects')

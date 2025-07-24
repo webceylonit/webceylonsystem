@@ -6,6 +6,8 @@ use App\Models\Client;
 use App\Models\Employee;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -41,6 +43,19 @@ class DashboardController extends Controller
         $monthlyProjects[] = $projectsByMonth[$i] ?? 0;
     }
 
+    // Developer-specific data
+    $user = Auth::user();
+
+    $assignedProjectsCount = $user->projects()->count(); // assuming relation
+    $devOngoing = $user->projects()->where('status', 'In Progress')->count();
+    $devCompleted = $user->projects()->where('status', 'Completed')->count();
+
+    // Tasks due today or soon
+    $dueTodayCount = $user->tasks()->whereDate('due_date', Carbon::today())->count();
+    $upcomingTasksCount = $user->tasks()->whereBetween('due_date', [
+        Carbon::tomorrow(), Carbon::now()->addDays(7)
+    ])->count();
+
     return view('AdminDashboard.home', compact(
         'employeeCount',
         'ongoingProjects',
@@ -49,7 +64,11 @@ class DashboardController extends Controller
         'newProjects',
         'projectCount',
         'monthlyClients',
-        'monthlyProjects'
+        'monthlyProjects',
+
+        // developer values
+        'assignedProjectsCount', 'devOngoing', 'devCompleted',
+        'dueTodayCount', 'upcomingTasksCount'
     ));
 }
 }

@@ -19,8 +19,8 @@
 <!-- Kanban Board -->
 <div class="container-fluid">
   <div class="row d-flex justify-content-center">
-    @foreach (['Pending', 'In Progress', 'Done'] as $status)
-      <div class="col-md-4">
+    @foreach (['Pending', 'In Progress', 'Approval', 'Done'] as $status)
+      <div class="col-md-3">
         <h5 class="text-center">{{ $status }}</h5>
         <div class="kanban-column bg-light p-3 rounded" data-status="{{ $status }}">
           @foreach ($tasks->where('status', $status) as $task)

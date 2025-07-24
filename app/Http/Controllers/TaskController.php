@@ -63,7 +63,7 @@ class TaskController extends Controller
             'assigned_to' => 'required|exists:employees,id',
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'status' => 'required|in:Pending,In Progress,Done',
+            'status' => 'required|in:Pending,In Progress,Done,Approval',
             'priority' => 'required|in:Low,Medium,High',
             'start_date' => 'nullable|date',
             'due_date' => 'nullable|date|after_or_equal:start_date',

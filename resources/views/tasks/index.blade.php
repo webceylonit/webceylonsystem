@@ -85,9 +85,10 @@
                 <div class="mb-3">
                   <label class="form-label">Status</label>
                   <select class="form-control" name="status">
-                    <option value="Pending" {{ $task->status == 'Pending' ? 'selected' : '' }}>Pending</option>
-                    <option value="In Progress" {{ $task->status == 'In Progress' ? 'selected' : '' }}>In Progress</option>
-                    <option value="Done" {{ $task->status == 'Done' ? 'selected' : '' }}>Done</option>
+                      <option value="Pending" {{ $task->status == 'Pending' ? 'selected' : '' }}>Pending</option>
+                      <option value="In Progress" {{ $task->status == 'In Progress' ? 'selected' : '' }}>In Progress</option>
+                      <option value="Approval" {{ $task->status == 'Approval' ? 'selected' : '' }}>To Approval</option>
+                      <option value="Done" {{ $task->status == 'Done' ? 'selected' : '' }}>Done</option>
                   </select>
                 </div>
                 <div class="mb-3">
