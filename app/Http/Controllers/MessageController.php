@@ -31,13 +31,15 @@ class MessageController extends Controller
 
         $request->validate([
             'message' => 'required|string',
-            'project_id' => 'required|exists:projects,id' // ✅ Ensure project exists
+            'project_id' => 'required|exists:projects,id', // ✅ Ensure project exists
+            'reply_to_id' => 'nullable|exists:messages,id',
         ]);
 
         Message::create([
             'sender_id' => auth()->id(),
             'project_id' => $request->project_id, // ✅ Correct way to get project_id
             'message' => $request->message,
+            'reply_to_id'  => $request->reply_to_id,
         ]);
         return back()->with('success', 'Message sent successfully!');
     }

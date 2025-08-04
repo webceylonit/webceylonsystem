@@ -6,35 +6,58 @@
 <div class="container-fluid">
     <div class="chat-header">
         <div class="chat-info">
-            <div class="chat-group">
-                <div class="chat-group-details">
-                    <h4 class="mt-4">{{ $project->name }}</h4>
-                    <p>{{ count($project->employees) }} Members</p>
-                </div>
+            <div class="chat-group-details">
+                <h4 class="mt-4">{{ $project->name }}</h4>
+                <p>{{ count($project->employees) }} Members</p>
             </div>
         </div>
     </div>
 
-    <!-- Scrollable Chat Box -->
+    <!-- Chat Messages -->
     <div class="chat-box" id="chatBox">
         @foreach($messages as $message)
-            <div class="chat-message {{ $message->sender_id == auth()->id() ? 'sent' : 'received' }}">
+            <div class="chat-message {{ $message->sender_id == auth()->id() ? 'sent' : 'received' }}"
+                 onclick="setReply('{{ $message->id }}', '{{ $message->sender->name }}', `{{ strip_tags($message->message) }}`)">
                 <div class="message-content">
-                    <strong>{{ $message->sender->name }}</strong></br>
-                    <p>{{ $message->message }}</p>
+                    <strong>{{ $message->sender->name }}</strong><br>
+
+                    @if($message->replyTo)
+                        <div class="reply-block">
+                            <small class="text-muted">↪ Reply to {{ $message->replyTo->sender->name }}:</small><br>
+                            <em class="text-muted">{{ Str::limit($message->replyTo->message, 100) }}</em>
+                            <hr class="my-1" />
+                        </div>
+                    @endif
+
+                    <p>{!! nl2br(e($message->message)) !!}</p>
                     <small class="message-time">{{ $message->created_at->format('h:i A') }}</small>
                 </div>
             </div>
         @endforeach
     </div>
 
-    <!-- Fixed Input Field at Bottom -->
-    @if(isset($project) && $project->id)
-    <form method="POST" action="{{ route('messages.store', $project->id) }}" class="chat-input-form">
+    <!-- Chat Input -->
+    @if(isset($project->id))
+    <form method="POST" action="{{ route('messages.store', $project->id) }}" class="chat-input-form" id="chatForm">
         @csrf
         <input type="hidden" name="project_id" value="{{ $project->id }}">
-        <div class="input-group">
-            <input type="text" name="message" class="form-control chat-input" placeholder="Type your message..." required>
+        <input type="hidden" name="reply_to_id" id="replyToId">
+
+        <!-- Reply preview -->
+        <div id="replyPreview" class="reply-preview d-none">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <small>Replying to <span id="replySender"></span>:</small><br>
+                    <em id="replyMessage" class="text-muted small"></em>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-danger ms-2" onclick="clearReply()">×</button>
+            </div>
+        </div>
+
+        <!-- Input Field -->
+        <div class="input-group mt-2">
+            <textarea name="message" class="form-control chat-input" id="messageInput"
+                      placeholder="Type your message..." required></textarea>
             <button type="submit" class="btn btn-primary chat-send-btn"><i class="fa fa-paper-plane"></i></button>
         </div>
     </form>
@@ -43,8 +66,8 @@
     @endif
 </div>
 
+<!-- Styles -->
 <style>
-/* Chat Header */
 .chat-header {
     display: flex;
     align-items: center;
@@ -53,55 +76,42 @@
     border-bottom: 1px solid #ddd;
     margin-bottom: 10px;
 }
-
-/* Chat Box - Scrollable */
 .chat-box {
-    max-height: calc(100vh - 180px); /* Adjusts height dynamically */
+    max-height: calc(80vh - 220px);
     overflow-y: auto;
     padding: 15px;
     background-color: #f4f5f7;
     border-radius: 10px;
-    margin-bottom: 60px; /* Space for the fixed input field */
+    margin-bottom: 60px;
     display: flex;
     flex-direction: column;
 }
-
-/* Chat Messages */
 .chat-message {
     display: flex;
     flex-direction: column;
-    max-width: 60%;
+    max-width: 65%;
     padding: 10px 15px;
     border-radius: 10px;
     margin-bottom: 10px;
     position: relative;
+    cursor: pointer;
 }
-
-/* Sent Messages (Right Side - Purple) */
 .sent {
     align-self: flex-end;
     background-color: #6c5ce7;
     color: white;
-    text-align: left;
     border-top-right-radius: 0;
 }
-
-/* Received Messages (Left Side - Grey) */
 .received {
     align-self: flex-start;
     background-color: #ffffff;
     color: #333;
-    text-align: left;
     border-top-left-radius: 0;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
-
-/* Message Content */
 .message-content {
     font-size: 14px;
 }
-
-/* Timestamp */
 .message-time {
     font-size: 12px;
     display: block;
@@ -109,31 +119,24 @@
     text-align: right;
     color: rgba(255, 255, 255, 0.8);
 }
-
 .received .message-time {
     color: rgba(0, 0, 0, 0.6);
 }
-
-/* Fixed Chat Input Field */
 .chat-input-form {
-    position: fixed;
-    bottom: 8%;
-    left: 30%;
-    right: 0;
-    width: 52%;
     background: white;
-    padding: 10px;
+    padding: 10px 0 0;
     border-top: 1px solid #ddd;
-    border-radius: 25px;
+    border-radius: 0 0 10px 10px;
+    margin-top: 20px;
 }
 
 .chat-input {
     border-radius: 25px;
     padding: 10px 15px;
-    flex: 1;
+    resize: none;
+    min-height: 50px;
     border: 1px solid #ddd;
 }
-
 .chat-send-btn {
     border-radius: 50%;
     width: 40px;
@@ -144,18 +147,49 @@
     align-items: center;
     justify-content: center;
 }
-
-.chat-send-btn i {
-    font-size: 18px;
+.reply-preview {
+    background-color: #e9ecef;
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+.reply-block {
+    background-color: #f1f1f1;
+    border-left: 3px solid #aaa;
+    padding-left: 10px;
+    margin-bottom: 6px;
 }
 </style>
 
-<!-- Auto-scroll to bottom when new messages appear -->
+<!-- Scripts -->
 <script>
+    // Auto-scroll
     document.addEventListener("DOMContentLoaded", function () {
-        var chatBox = document.getElementById("chatBox");
+        const chatBox = document.getElementById("chatBox");
         chatBox.scrollTop = chatBox.scrollHeight;
+
+        const textarea = document.getElementById("messageInput");
+        textarea.addEventListener("keydown", function (e) {
+            if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                document.getElementById("chatForm").submit();
+            }
+        });
     });
+
+    // Set reply
+    function setReply(id, sender, message) {
+        document.getElementById("replyToId").value = id;
+        document.getElementById("replySender").textContent = sender;
+        document.getElementById("replyMessage").textContent = message.substring(0, 100);
+        document.getElementById("replyPreview").classList.remove("d-none");
+    }
+
+    // Clear reply
+    function clearReply() {
+        document.getElementById("replyToId").value = "";
+        document.getElementById("replyPreview").classList.add("d-none");
+    }
 </script>
 
 @endsection

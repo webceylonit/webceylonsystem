@@ -80,7 +80,7 @@
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Description</label>
-                  <textarea class="form-control" name="description">{{ $task->description }}</textarea>
+                  <textarea class="form-control" name="description" rows="6">{{ $task->description }}</textarea>
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Status</label>
@@ -212,7 +212,7 @@
           </div>
           <div class="mb-3">
             <label class="form-label">Description</label>
-            <textarea class="form-control" name="description"></textarea>
+            <textarea class="form-control" name="description" rows="6"></textarea>
           </div>
           <div class="mb-3">
             <label class="form-label">Status</label>
