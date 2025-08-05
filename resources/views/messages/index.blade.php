@@ -16,8 +16,7 @@
     <!-- Chat Messages -->
     <div class="chat-box" id="chatBox">
         @foreach($messages as $message)
-            <div class="chat-message {{ $message->sender_id == auth()->id() ? 'sent' : 'received' }}"
-                 onclick="setReply('{{ $message->id }}', '{{ $message->sender->name }}', `{{ strip_tags($message->message) }}`)">
+            <div class="chat-message {{ $message->sender_id == auth()->id() ? 'sent' : 'received' }}">
                 <div class="message-content">
                     <strong>{{ $message->sender->name }}</strong><br>
 
@@ -31,6 +30,27 @@
 
                     <p>{!! nl2br(e($message->message)) !!}</p>
                     <small class="message-time">{{ $message->created_at->format('h:i A') }}</small>
+
+                    <div class="d-flex justify-content-end gap-2 mt-2">
+                        <!-- Reply always -->
+                        <button type="button" onclick="setReply('{{ $message->id }}', '{{ $message->sender->name }}', `{{ strip_tags($message->message) }}`)" class="btn btn-sm btn-outline-primary">
+                            <i class="fa fa-reply"></i> Reply
+                        </button>
+
+                        @if($message->sender_id == auth()->id())
+                            <!-- Edit + Delete only for sender -->
+                            <button type="button" onclick="editMessage('{{ $message->id }}', `{{ addslashes($message->message) }}`)" class="btn btn-sm btn-outline-warning">
+                                <i class="fa fa-edit"></i> Edit
+                            </button>
+                            <form method="POST" action="{{ route('messages.destroy', $message->id) }}" class="d-inline" onsubmit="return confirm('Delete this message?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                    <i class="fa fa-trash"></i> Delete
+                                </button>
+                            </form>
+                        @endif
+                    </div>
                 </div>
             </div>
         @endforeach
@@ -98,7 +118,7 @@
 }
 .sent {
     align-self: flex-end;
-    background-color: #6c5ce7;
+    background-color: #1a237e;
     color: white;
     border-top-right-radius: 0;
 }
@@ -129,7 +149,6 @@
     border-radius: 0 0 10px 10px;
     margin-top: 20px;
 }
-
 .chat-input {
     border-radius: 25px;
     padding: 10px 15px;
@@ -163,7 +182,6 @@
 
 <!-- Scripts -->
 <script>
-    // Auto-scroll
     document.addEventListener("DOMContentLoaded", function () {
         const chatBox = document.getElementById("chatBox");
         chatBox.scrollTop = chatBox.scrollHeight;
@@ -177,7 +195,6 @@
         });
     });
 
-    // Set reply
     function setReply(id, sender, message) {
         document.getElementById("replyToId").value = id;
         document.getElementById("replySender").textContent = sender;
@@ -185,11 +202,36 @@
         document.getElementById("replyPreview").classList.remove("d-none");
     }
 
-    // Clear reply
     function clearReply() {
         document.getElementById("replyToId").value = "";
         document.getElementById("replyPreview").classList.add("d-none");
     }
-</script>
 
+    function editMessage(id, currentText) {
+        const newText = prompt("Edit your message:", currentText);
+        if (newText !== null && newText.trim() !== '') {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = `/messages/${id}`;
+
+            const token = document.createElement('input');
+            token.name = '_token';
+            token.value = '{{ csrf_token() }}';
+            form.appendChild(token);
+
+            const method = document.createElement('input');
+            method.name = '_method';
+            method.value = 'PUT';
+            form.appendChild(method);
+
+            const input = document.createElement('input');
+            input.name = 'message';
+            input.value = newText;
+            form.appendChild(input);
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+    }
+</script>
 @endsection

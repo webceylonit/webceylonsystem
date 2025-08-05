@@ -137,6 +137,8 @@ Route::middleware(['auth:employee'])->group(function () {
         Route::post('/messages/send', [MessageController::class, 'sendMessage'])->name('messages.send');
         Route::get('/messages/fetch/{receiverId?}/{groupId?}', [MessageController::class, 'fetchMessages'])->name('messages.fetch');
     });
+    Route::put('/messages/{id}', [MessageController::class, 'update'])->name('messages.update');
+    Route::delete('/messages/{id}', [MessageController::class, 'destroy'])->name('messages.destroy');
 
     Route::get('/projects/{project}/messages', [MessageController::class, 'index'])->name('messages.index');
     Route::post('/projects/{project}/messages', [MessageController::class, 'store'])->name('messages.store');

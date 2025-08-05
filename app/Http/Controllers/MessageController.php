@@ -49,4 +49,33 @@ class MessageController extends Controller
         $projects = auth()->user()->projects;
         return view('messages.project_list', compact('projects'));
     }
+
+    // ✏️ Edit (Update) Message
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'message' => 'required|string|max:1000'
+        ]);
+
+        $message = Message::where('id', $id)
+            ->where('sender_id', auth()->id())
+            ->firstOrFail();
+
+        $message->update(['message' => $request->message]);
+
+        return back()->with('success', 'Message updated.');
+    }
+
+    // 🗑️ Delete Message
+    public function destroy($id)
+    {
+        $message = Message::where('id', $id)
+            ->where('sender_id', auth()->id())
+            ->firstOrFail();
+
+        $message->delete();
+
+        return back()->with('success', 'Message deleted.');
+    }
+
 }
