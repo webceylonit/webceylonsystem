@@ -28,6 +28,7 @@ use App\Http\Controllers\SprintController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\KanbanController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\SprintNoteController;
 
 // Redirect logic
 Route::get('/', function () {
@@ -113,11 +114,29 @@ Route::middleware(['auth:employee'])->group(function () {
     // Tasks
     Route::prefix('tasks')->group(function () {
         Route::get('/sprint/{sprint}', [TaskController::class, 'index'])->name('tasks.index');
+
         Route::get('/create/{sprint}', [TaskController::class, 'create'])->name('tasks.create');
         Route::post('/store', [TaskController::class, 'store'])->name('tasks.store');
         Route::get('/edit/{task}', [TaskController::class, 'edit'])->name('tasks.edit');
         Route::put('/update/{task}', [TaskController::class, 'update'])->name('tasks.update');
         Route::delete('/delete/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
+
+        // Drag & drop reorder (mixed tasks + notes, tokens like t:12 / n:3)
+        Route::post('/reorder', [TaskController::class, 'reorder'])->name('tasks.reorder');
+
+        // Task update/problem/requirement actions used by your modals
+        Route::post('/{task}/add-update', [TaskController::class, 'addUpdate'])->name('tasks.addUpdate');
+        Route::post('/solve-update/{taskUpdate}', [TaskController::class, 'solveUpdate'])->name('tasks.solveUpdate');
+
+        // Optional utilities
+        Route::get('/overdue', [TaskController::class, 'getOverdueTasks'])->name('tasks.overdue');
+    });
+
+    // Sprint Notes (comment boxes / dividers)
+    Route::prefix('sprint-notes')->group(function () {
+        Route::post('/store',   [SprintNoteController::class, 'store'])->name('sprint-notes.store');
+        Route::put('/{note}',   [SprintNoteController::class, 'update'])->name('sprint-notes.update');
+        Route::delete('/{note}',[SprintNoteController::class, 'destroy'])->name('sprint-notes.destroy');
     });
 
     // Task Updates

@@ -1,73 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Cuba admin is super flexible, powerful, clean &amp; modern responsive bootstrap 5 admin template with unlimited possibilities.">
+  <meta name="description" content="Cuba admin is super flexible, powerful, clean & modern responsive bootstrap 5 admin template with unlimited possibilities.">
   <meta name="keywords" content="admin template, Cuba admin template, dashboard template, flat admin template, responsive admin template, web app">
   <meta name="author" content="pixelstrap">
+  <meta name="csrf-token" content="{{ csrf_token() }}"><!-- CSRF in HEAD -->
+
   <link rel="icon" href="{{ asset('frontend/assets/images/wcicon.png') }}" type="image/x-icon">
   <link rel="shortcut icon" href="{{ asset('frontend/assets/images/wcicon.png') }}" type="image/x-icon">
-  <title> WebCeylon Project Tool | @yield('title', 'Dashboard')</title>
-  <!-- Google font-->
-  <link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i&amp;display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900&amp;display=swap" rel="stylesheet">
+  <title>WebCeylon Project Tool | @yield('title', 'Dashboard')</title>
+
+  <!-- Google fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900&display=swap" rel="stylesheet">
 
   <!-- Select2 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 
-
-  <link rel="stylesheet" type="text/css" href="{{ asset('frontend/assets/css/font-awesome.css') }}">
-  <!-- ico-font-->
-  <link rel="stylesheet" type="text/css" href="{{ asset('frontend/assets/css/vendors/icofont.css') }}">
-  <!-- Themify icon-->
-  <link rel="stylesheet" type="text/css" href="{{ asset('frontend/assets/css/vendors/themify.css') }}">
-  <!-- Flag icon-->
-  <link rel="stylesheet" type="text/css" href="{{ asset('frontend/assets/css/vendors/flag-icon.css') }}">
-  <!-- Feather icon-->
-  <link rel="stylesheet" type="text/css" href="{{ asset('frontend/assets/css/vendors/feather-icon.css') }}">
-  <!-- Plugins css start-->
-  <link rel="stylesheet" type="text/css" href="{{ asset('frontend/assets/css/vendors/slick.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ asset('frontend/assets/css/vendors/slick-theme.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ asset('frontend/assets/css/vendors/scrollbar.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ asset('frontend/assets/css/vendors/animate.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ asset('frontend/assets/css/vendors/datatables.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ asset('frontend/assets/css/vendors/swiper/swiper-bundle.min.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ asset('frontend/assets/css/vendors/swiper/swiper.min.css') }}">
-  <!-- Plugins css Ends-->
-  <!-- Bootstrap css-->
-  <link rel="stylesheet" type="text/css" href="{{ asset('frontend/assets/css/vendors/bootstrap.css') }}">
-  <!-- App css-->
-  <link rel="stylesheet" type="text/css" href="{{ asset('frontend/assets/css/style.css') }}">
+  <link rel="stylesheet" href="{{ asset('frontend/assets/css/font-awesome.css') }}">
+  <link rel="stylesheet" href="{{ asset('frontend/assets/css/vendors/icofont.css') }}">
+  <link rel="stylesheet" href="{{ asset('frontend/assets/css/vendors/themify.css') }}">
+  <link rel="stylesheet" href="{{ asset('frontend/assets/css/vendors/flag-icon.css') }}">
+  <link rel="stylesheet" href="{{ asset('frontend/assets/css/vendors/feather-icon.css') }}">
+  <link rel="stylesheet" href="{{ asset('frontend/assets/css/vendors/slick.css') }}">
+  <link rel="stylesheet" href="{{ asset('frontend/assets/css/vendors/slick-theme.css') }}">
+  <link rel="stylesheet" href="{{ asset('frontend/assets/css/vendors/scrollbar.css') }}">
+  <link rel="stylesheet" href="{{ asset('frontend/assets/css/vendors/animate.css') }}">
+  <link rel="stylesheet" href="{{ asset('frontend/assets/css/vendors/datatables.css') }}">
+  <link rel="stylesheet" href="{{ asset('frontend/assets/css/vendors/swiper/swiper-bundle.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('frontend/assets/css/vendors/swiper/swiper.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('frontend/assets/css/vendors/bootstrap.css') }}">
+  <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}">
   <link id="color" rel="stylesheet" href="{{ asset('frontend/assets/css/color-1.css') }}">
-  <!-- Responsive css-->
-  <link rel="stylesheet" type="text/css" href="{{ asset('frontend/assets/css/responsive.css') }}">
+  <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
 
 <body onload="startTime()">
-  <!-- loader starts-->
   <div class="loader-wrapper">
-    <div class="loader-index"> <span></span></div>
-    <svg>
-      <defs></defs>
-      <filter id="goo">
-        <fegaussianblur in="SourceGraphic" stddeviation="11" result="blur"></fegaussianblur>
-        <fecolormatrix in="blur" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo"> </fecolormatrix>
-      </filter>
-    </svg>
+    <div class="loader-index"><span></span></div>
+    <svg><defs></defs><filter id="goo">
+      <fegaussianblur in="SourceGraphic" stddeviation="11" result="blur"></fegaussianblur>
+      <fecolormatrix in="blur" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo"></fecolormatrix>
+    </filter></svg>
   </div>
-  <!-- loader ends-->
-  <!-- tap on top starts-->
-  <div class="tap-top"><i data-feather="chevrons-up"></i></div>
-  <!-- tap on tap ends-->
-  <!-- page-wrapper Start-->
-  <div class="page-wrapper compact-wrapper" id="pageWrapper">
 
+  <div class="tap-top"><i data-feather="chevrons-up"></i></div>
+
+  <div class="page-wrapper compact-wrapper" id="pageWrapper">
     @include('AdminDashboard.header')
-    <!-- Page Body Start-->
+
     <div class="page-body-wrapper">
       @include('AdminDashboard.sidebar')
 
@@ -86,10 +71,7 @@
               showConfirmButton: false,
               timer: 3000,
               timerProgressBar: true,
-              didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer);
-                toast.addEventListener('mouseleave', Swal.resumeTimer);
-              }
+              didOpen: (t)=>{ t.addEventListener('mouseenter', Swal.stopTimer); t.addEventListener('mouseleave', Swal.resumeTimer); }
             });
             @endif
 
@@ -103,16 +85,12 @@
               showConfirmButton: false,
               timer: 3000,
               timerProgressBar: true,
-              didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer);
-                toast.addEventListener('mouseleave', Swal.resumeTimer);
-              }
+              didOpen: (t)=>{ t.addEventListener('mouseenter', Swal.stopTimer); t.addEventListener('mouseleave', Swal.resumeTimer); }
             });
             @endif
           });
 
           function confirmDelete(formId) {
-
             Swal.fire({
               title: "Are you sure?",
               text: "This action cannot be undone!",
@@ -122,36 +100,29 @@
               cancelButtonColor: "#3085d6",
               confirmButtonText: "Yes, delete it!"
             }).then((result) => {
-              if (result.isConfirmed) {
-                document.getElementById(formId).submit();
-              }
+              if (result.isConfirmed) document.getElementById(formId).submit();
             });
           }
         </script>
       </div>
+
       @include('AdminDashboard.footer')
     </div>
   </div>
 
-  <!-- jQuery (Ensure it's loaded before Select2) -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- jQuery (choose ONE source; keeping local here) -->
+  <script src="{{ asset('frontend/assets/js/jquery.min.js') }}"></script>
 
   <!-- Select2 JS -->
   <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 
-  <!-- latest jquery-->
-  <script src="{{ asset('frontend/assets/js/jquery.min.js') }}"></script>
-  <!-- Bootstrap js-->
+  <!-- Bootstrap and vendor JS -->
   <script src="{{ asset('frontend/assets/js/bootstrap/bootstrap.bundle.min.js') }}"></script>
-  <!-- feather icon js-->
   <script src="{{ asset('frontend/assets/js/icons/feather-icon/feather.min.js') }}"></script>
   <script src="{{ asset('frontend/assets/js/icons/feather-icon/feather-icon.js') }}"></script>
-  <!-- scrollbar js-->
   <script src="{{ asset('frontend/assets/js/scrollbar/simplebar.js') }}"></script>
   <script src="{{ asset('frontend/assets/js/scrollbar/custom.js') }}"></script>
-  <!-- Sidebar jquery-->
   <script src="{{ asset('frontend/assets/js/config.js') }}"></script>
-  <!-- Plugins JS start-->
   <script src="{{ asset('frontend/assets/js/sidebar-menu.js') }}"></script>
   <script src="{{ asset('frontend/assets/js/sidebar-pin.js') }}"></script>
   <script src="{{ asset('frontend/assets/js/clock.js') }}"></script>
@@ -163,7 +134,6 @@
   <script src="{{ asset('frontend/assets/js/chart/apex-chart/moment.min.js') }}"></script>
   <script src="{{ asset('frontend/assets/js/notify/bootstrap-notify.min.js') }}"></script>
   <script src="{{ asset('frontend/assets/js/dashboard/default.js') }}"></script>
-  <!-- <script src="{{ asset('frontend/assets/js/notify/index.js') }}"></script> -->
   <script src="{{ asset('frontend/assets/js/typeahead/handlebars.js') }}"></script>
   <script src="{{ asset('frontend/assets/js/typeahead/typeahead.bundle.js') }}"></script>
   <script src="{{ asset('frontend/assets/js/typeahead/typeahead.custom.js') }}"></script>
@@ -173,15 +143,13 @@
   <script src="{{ asset('frontend/assets/js/animation/wow/wow.min.js') }}"></script>
   <script src="{{ asset('frontend/assets/js/datatable/datatables/jquery.dataTables.min.js') }}"></script>
   <script src="{{ asset('frontend/assets/js/datatable/datatables/datatable.custom.js') }}"></script>
-  <!-- Plugins JS Ends-->
-  <!-- Theme js-->
   <script src="{{ asset('frontend/assets/js/script.js') }}"></script>
 
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script><!-- Sortable globally -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  @yield('scripts')
-  <script>
-    new WOW().init();
-  </script>
-</body>
 
+  @stack('scripts') <!-- children push here -->
+
+  <script> new WOW().init(); </script>
+</body>
 </html>
