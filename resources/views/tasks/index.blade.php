@@ -259,11 +259,17 @@
 
   <!-- Add at end helper -->
   <div class="text-center mt-2">
+
+    @permission('Create Tasks')
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTaskModal">+ Add Task</button>
+    @endpermission
+    
     <button class="btn btn-outline-primary add-note-here"
             data-anchor="__END__"
             data-bs-toggle="modal" data-bs-target="#addNoteHereModal">
       + Add Note at End
     </button>
+
   </div>
 </div>
 
