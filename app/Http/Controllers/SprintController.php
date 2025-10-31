@@ -8,15 +8,22 @@ use App\Models\Project;
 
 class SprintController extends Controller
 {
-    /**
-     * Display a listing of the sprints.
-     */
     public function index(Request $request)
     {
-        $projectId = $request->query('project_id'); // Get project ID from URL
-        $sprints = Sprint::where('project_id', $projectId)->get();
+        $projectId = $request->query('project_id');
+
+        $sprints = Sprint::where('project_id', $projectId)
+            ->withCount([
+                'tasks', // total
+                'tasks as completed_tasks_count' => fn($q) => $q->where('status', 'Done'),
+                'tasks as pending_tasks_count'   => fn($q) => $q->where('status', '!=', 'Done'),
+            ])
+            ->orderBy('start_date')
+            ->get();
+
         return view('sprints.index', compact('sprints', 'projectId'));
     }
+
 
     /**
      * Show the form for creating a new sprint.
